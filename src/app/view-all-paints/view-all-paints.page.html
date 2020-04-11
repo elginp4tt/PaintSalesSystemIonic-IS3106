@@ -1,0 +1,48 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-menu-button></ion-menu-button>
+		</ion-buttons>
+		<ion-title>
+			View All Paints
+		</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<ion-card>      
+		<ion-card-header>        
+			<ion-card-title>View All Paints</ion-card-title>
+		</ion-card-header>
+		<ion-card-content>
+		
+			<div *ngIf="errorMessage">
+				{{errorMessage}}
+			</div>
+			
+			<ion-grid>
+				<ion-row>
+					<ion-col>Paint ID</ion-col>
+					<ion-col>Name</ion-col>
+					<ion-col>ColourCode</ion-col>
+					<ion-col>Price</ion-col>
+					<ion-col>Paint Categories</ion-col>
+					<ion-col>Tags</ion-col>
+				</ion-row>
+				<ion-row *ngFor="let paint of paints">
+					<ion-col>{{paint.paintId}}</ion-col>
+					<ion-col>{{paint.name}}</ion-col>
+					<ion-col>{{paint.colourCode}}</ion-col>
+					<ion-col>{{paint.price}}</ion-col>
+					<ion-col>{{paint.paintCategories}}</ion-col>
+					<ion-col>{{paint.tags}}</ion-col>
+				</ion-row>
+			</ion-grid>
+			
+		</ion-card-content>
+	</ion-card>
+</ion-content>
+
+<ion-footer>
+	<ion-title size="small">&copy; 2020 IS3106. All rights reserved.</ion-title>
+</ion-footer>
