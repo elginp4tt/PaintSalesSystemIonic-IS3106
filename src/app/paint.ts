@@ -1,3 +1,7 @@
+import { PaintTransaction } from './paint-transaction';
+import { PaintCategory } from './paint-category';
+import { PaintTag } from './paint-tag';
+
 export class Paint {
 	
 	paintId: number;
@@ -7,9 +11,9 @@ export class Paint {
 	
 	paintTransactions: PaintTransaction[];
 	paintCategories: PaintCategory[];
-	tags: Tag[];
+	tags: PaintTag[];
 	
-	constructor(paintId?: number, name?: string, colourCode?: string, price?: number, paintTransactions?: PaintTransaction[], paintCategories?: PaintCategory[], tags?: Tag[]) {
+	constructor(paintId?: number, name?: string, colourCode?: string, price?: number, paintTransactions?: PaintTransaction[], paintCategories?: PaintCategory[], tags?: PaintTag[]) {
 		this.paintId = paintId;
 		this.name = name;
 		this.colourCode = colourCode;

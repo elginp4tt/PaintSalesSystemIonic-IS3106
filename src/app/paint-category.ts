@@ -1,3 +1,5 @@
+import { Paint } from './paint';
+
 export class PaintCategory {
 	paintCategoryId: number;
 	categoryName: string;

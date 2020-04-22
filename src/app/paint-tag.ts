@@ -1,3 +1,5 @@
+import { Paint } from './paint';
+
 export class PaintTag {
 	tagId: number;
 	tagName: string;

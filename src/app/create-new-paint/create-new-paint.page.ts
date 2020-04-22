@@ -22,7 +22,7 @@ export class CreateNewPaintPage implements OnInit {
 	errorMessage: string;
 	
 	paintCategories: PaintCategory[];
-	tags: Tag[];
+	tags: PaintTag[];
 
 
 	constructor(private paintService: PaintService,
