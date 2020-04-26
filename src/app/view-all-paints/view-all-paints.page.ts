@@ -18,7 +18,6 @@ export class ViewAllPaintsPage implements OnInit {
 	}
 
 
-
 	ngOnInit() {
 		this.paintService.getPaints().subscribe(
 			response => {
