@@ -24,7 +24,7 @@ export class PaintService {
 		this.baseUrl = this.utilityService.getRootPath() + 'Paint';
 	}
   
-  getPaints(): Observable<any>
+	getPaints(): Observable<any>
 	{
 		return this.httpClient.get<any>(this.baseUrl).pipe
 		(
