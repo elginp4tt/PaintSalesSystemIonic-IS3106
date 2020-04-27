@@ -47,7 +47,7 @@ export class TransactionService {
 	createNewTransaction(customer: Customer, transactionLineItems: TransactionLineItem[]): Observable<any>
 	{
 		let createNewTransactionReq = {
-			"customer": customer,
+			"customerId": customer.customerId,
 			"transactionLineItems": transactionLineItems,
 		};
 		

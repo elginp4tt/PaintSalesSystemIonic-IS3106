@@ -6,6 +6,7 @@ import { catchError } from 'rxjs/operators';
 
 import { UtilityService } from './utility.service';
 import { Paint } from './paint';
+import { PaintService } from './paint-service';
 
 const httpOptions = {
 	headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -14,38 +15,30 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class PaintService {
-	
+export class PaintServiceService {
+
 	baseUrl: string;
 
-  constructor(private httpClient: HttpClient,
+	constructor(private httpClient: HttpClient,
 			  private utilityService: UtilityService){
 				  
-		this.baseUrl = this.utilityService.getRootPath() + 'Paint';
-	}
-  
-	getPaints(): Observable<any>
-	{
-		return this.httpClient.get<any>(this.baseUrl + "/retrieveAllPaints").pipe
-		(
-			catchError(this.handleError)
-		);
+		this.baseUrl = this.utilityService.getRootPath() + 'PaintService';
 	}
 	
-	getPaintByPaintId(paintId: number): Observable<any>
+	getPaintServiceByPaintServiceId(paintServiceId: number): Observable<any>
 	{
-		return this.httpClient.get<any>(this.baseUrl + "/retrievePaint/" + paintId).pipe
+		return this.httpClient.get<any>(this.baseUrl + "/retrievePaintService/" + paintServiceId).pipe
 		(
 			catchError(this.handleError)
 		);
 	}
 	
 	
-	createNewPaint(newPaint: Paint): Observable<any>
+	createNewPaintService(newPaintService: PaintService): Observable<any>
 	{
-		let createNewPaintReq = {'newPaint': newPaint};
+		let createNewPaintServiceReq = {'newPaintService': newPaintService};
 		
-		return this.httpClient.put<any>(this.baseUrl, createNewPaintReq, httpOptions).pipe
+		return this.httpClient.put<any>(this.baseUrl, createNewPaintServiceReq, httpOptions).pipe
 		(
 			catchError(this.handleError)
 		);
