@@ -4,6 +4,9 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { BehaviorSubject, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
+import { UtilityService } from './utility.service';
+import { SessionService } from './session.service';
+import { TransactionService } from './transaction.service';
 import { TransactionLineItem } from './transaction-line-item';
 
 @Injectable({
@@ -11,10 +14,18 @@ import { TransactionLineItem } from './transaction-line-item';
 })
 export class CartService {
 	
+	baseUrl: string;
+	
 	private cart: TransactionLineItem[];
 	private itemCount = new BehaviorSubject(0);
 
-	constructor() { }
+	constructor(private httpClient: HttpClient,
+				private utilityService: UtilityService,
+				private transactionService: TransactionService,
+				private sessionService: SessionService) {
+				  
+		this.baseUrl = this.utilityService.getRootPath() + 'Cart';
+	}
   
 	getCart() {
 		return this.cart;
@@ -64,6 +75,12 @@ export class CartService {
 
 	clearCart() {
 		this.cart.length = 0;
+	}
+	
+	checkout() {
+		this.transactionService.createNewTransaction(this.sessionService.getCurrentCustomer(), this.getCart());
+		
+		this.clearCart();
 	}
 	
 	private handleError(error: HttpErrorResponse)

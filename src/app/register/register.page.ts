@@ -64,9 +64,8 @@ export class RegisterPage implements OnInit {
 				error => {
 					this.registrationError = true;
 					this.registrationSuccess = false;
-					this.message = "An error has occurred while creating the new product: " + error;
+					this.message = "An error has occurred while creating the new customer: " + error;
 					
-					console.log('********** CreateNewProductPage.ts: ' + error);
 				}
 			);
 		}

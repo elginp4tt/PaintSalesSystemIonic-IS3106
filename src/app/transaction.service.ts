@@ -7,6 +7,8 @@ import { catchError } from 'rxjs/operators';
 import { UtilityService } from './utility.service';
 import { SessionService } from './session.service';
 import { Transaction } from './transaction';
+import { Customer } from './customer';
+import { TransactionLineItem } from './transaction-line-item';
 
 const httpOptions = {
 	headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -28,15 +30,26 @@ export class TransactionService {
 	
 	getTransactions(): Observable<any>
 	{				
-		return this.httpClient.get<any>(this.baseUrl + "/retrieveAllTransaction?username=" + this.sessionService.getUsername() + "&password=" + this.sessionService.getPassword()).pipe
+		return this.httpClient.get<any>(this.baseUrl + "/retrieveAllTransactions?username=" + this.sessionService.getUsername() + "&password=" + this.sessionService.getPassword()).pipe
 		(
 			catchError(this.handleError)
 		);
 	}
 	
-	createNewTransaction(newTransaction: Transaction): Observable<any>
+	getTransactionByTransactionId(transactionId: number): Observable<any>
 	{
-		let createNewTransactionReq = {'newTransaction': newTransaction};
+		return this.httpClient.get<any>(this.baseUrl + "/retrieveTransaction/" + transactionId).pipe
+		(
+			catchError(this.handleError)
+		);
+	}
+	
+	createNewTransaction(customer: Customer, transactionLineItems: TransactionLineItem[]): Observable<any>
+	{
+		let createNewTransactionReq = {
+			"customer": customer,
+			"transactionLineItems": transactionLineItems,
+		};
 		
 		return this.httpClient.put<any>(this.baseUrl, createNewTransactionReq, httpOptions).pipe
 		(
@@ -59,6 +72,6 @@ export class TransactionService {
 		
 		console.error(errorMessage);
 		
-		return throwError(errorMessage);		
+		return throwError(errorMessage);
 	}
 }
