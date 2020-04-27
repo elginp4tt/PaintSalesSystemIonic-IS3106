@@ -26,6 +26,14 @@ export class DeliveryService {
 		this.baseUrl = this.utilityService.getRootPath() + 'Delivery';
 	}
 	
+	getDeliveryByDeliveryId(deliveryId: number): Observable<any>
+	{
+		return this.httpClient.get<any>(this.baseUrl + "/retrieveDelivery/" + deliveryId).pipe
+		(
+			catchError(this.handleError)
+		);
+	}
+	
 	
 	createNewDelivery(newDelivery: Delivery): Observable<any>
 	{
