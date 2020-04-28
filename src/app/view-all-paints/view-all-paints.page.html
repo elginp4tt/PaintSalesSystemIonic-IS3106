@@ -25,17 +25,26 @@
 					<ion-col>Paint ID</ion-col>
 					<ion-col>Name</ion-col>
 					<ion-col>ColourCode</ion-col>
-					<ion-col>Price</ion-col>
+                    <ion-col>Price</ion-col>
+                    <ion-col>Paint Rating</ion-col>
 					<ion-col>Paint Categories</ion-col>
-					<ion-col>Tags</ion-col>
+                    <ion-col>Tags</ion-col>
+                    <ion-col>Action</ion-col>
 				</ion-row>
 				<ion-row *ngFor="let paint of paints">
 					<ion-col>{{paint.paintId}}</ion-col>
 					<ion-col>{{paint.name}}</ion-col>
 					<ion-col>{{paint.colourCode}}</ion-col>
-					<ion-col>{{paint.price}}</ion-col>
+                    <ion-col>{{paint.price}}</ion-col>
+                    <ion-col>{{paint.paintRating}}</ion-col>
 					<ion-col>{{paint.paintCategories}}</ion-col>
-					<ion-col>{{paint.tags}}</ion-col>
+                    <ion-col>{{paint.tags}}</ion-col>
+                    <ion-col>
+                        <ion-button (click) = 'viewPaintDetails($event, paint)'>
+                            <ion-icon slot="start" name="arrow-forward"></ion-icon>
+                            View
+                        </ion-button>
+                    </ion-col>
 				</ion-row>
 			</ion-grid>
 			

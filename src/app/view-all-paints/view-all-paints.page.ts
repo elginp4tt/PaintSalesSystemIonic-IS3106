@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { PaintService } from '../paint.service';
 import { Paint } from '../paint';
@@ -14,7 +15,9 @@ export class ViewAllPaintsPage implements OnInit {
 	paints: Paint[];
 	errorMessage: string;
 
-	constructor(private paintService: PaintService) {		
+    constructor(private paintService: PaintService,
+                private router: Router) 
+    {		
 	}
 
 
@@ -27,7 +30,24 @@ export class ViewAllPaintsPage implements OnInit {
 				this.errorMessage = error
 			}
 		);
-	}
+    }
+    
+    ionViewWillEnter() {
+        this.refreshPaints();
+    }
 
+    viewPaintDetails(event, paint) {
+        this.router.navigate(['/viewPaintDetails' + paint.paintId]);
+    }
 
+    refreshPaints() {
+        this.paintService.getPaints().subscribe(
+			response => {
+				this.paints = response.paints
+			},
+			error => {
+				this.errorMessage = error
+			}
+		);
+    }
 }

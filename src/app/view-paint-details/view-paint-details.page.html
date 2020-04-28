@@ -1,9 +1,66 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>ViewPaintDetails</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button (click)="back()">
+                <ion-icon slot="start" name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>View Paint Details</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
+    <ion-card>
+        <ion-card-content>
+            <div *ngIf = 'retrievePaintError == true' style="color: red;">
+                Paint Id ({paintId}) does not exist!
+            </div>
+            
+            <ion-list *ngIf = 'retrievePaintError == false ** paintToView != null'>
+                <ion-item>
+                    <ion-label><b>Paint ID</b></ion-label>
+                    {{paintToView.paintId}}
+                </ion-item>
 
+                <ion-item>
+                    <ion-label><b>Colour Code</b></ion-label>
+                    {{paintToView.colourCode}}
+                </ion-item>
+
+                <ion-item>
+                    <ion-label><b>Name</b></ion-label>
+                    {{paintToView.name}}
+                </ion-item>
+
+                <ion-item>
+                    <ion-label><b>Price</b></ion-label>
+                    {{paintToView.price | currency}}
+                </ion-item>
+
+                <ion-item>
+                    <ion-label><b>Quantity Available</b></ion-label>
+                    {{paintToView.quantityOnHand}}
+                </ion-item>
+
+                <ion-item>
+                    <ion-label><b>Paint Rating</b></ion-label>
+                    {{paintToView.paintRating}}
+                </ion-item>
+
+                <ion-item>
+                    <ion-label><b>Categories</b></ion-label>
+                    <ul>
+                        <li *ngFor="let paintCategory of paintToView.paintCategories">{{paintCategory.categoryName}}</li>
+                    </ul>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label><b>Tags</b></ion-label>
+                    <ul>
+                        <li *ngFor="let tag of paintToView.tags">{{tag.tagName}}</li>
+                    </ul>
+                </ion-item>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
 </ion-content>

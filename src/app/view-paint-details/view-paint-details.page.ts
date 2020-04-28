@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
+
+import { PaintService} from '../paint.service';
+import { Paint } from '../paint';
 
 @Component({
   selector: 'app-view-paint-details',
@@ -7,9 +12,47 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewPaintDetailsPage implements OnInit {
 
-  constructor() { }
+    paintId: number;
+    paintToView: Paint;
+    retrievePaintError: boolean;
+    error: boolean;
+    errorMessage: string;
+    resultSuccess: boolean;
 
-  ngOnInit() {
-  }
+    constructor(private router: Router,
+                private activatedRoute: ActivatedRoute,
+                private paintService: PaintService,
+                public alertController: AlertController) 
+    {
+        this.retrievePaintError = false;
+        this.error = false;
+        this.resultSuccess = false;
+    }
+
+    ngOnInit() {
+        this.paintId = parseInt(this.activatedRoute.snapshot.paramMap.get('paintId'));
+
+        this.refreshPaint();
+    }
+
+    ionViewWillEnter() {
+        this.refreshPaint();
+    }
+
+    refreshPaint() {
+        this.paintService.getPaintByPaintId(this.paintId).subscribe(
+            response => {
+                this.paintToView = response.paint;
+            },
+            error => {
+                this.retrievePaintError = true;
+                console.log('********** ViewPaintDetailsPage.ts ' + error);
+            }
+        )
+    }
+
+    back() {
+        this.router.navigate(['/viewAllPaints']);
+    }
 
 }
