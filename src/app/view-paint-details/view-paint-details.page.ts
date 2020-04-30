@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
 
 import { PaintService} from '../paint.service';
 import { Paint } from '../paint';
@@ -21,8 +20,7 @@ export class ViewPaintDetailsPage implements OnInit {
 
     constructor(private router: Router,
                 private activatedRoute: ActivatedRoute,
-                private paintService: PaintService,
-                public alertController: AlertController) 
+                private paintService: PaintService) 
     {
         this.retrievePaintError = false;
         this.error = false;

@@ -13,7 +13,8 @@ import { Paint } from '../paint';
 export class ViewAllPaintsPage implements OnInit {
 	
 	paints: Paint[];
-	errorMessage: string;
+    errorMessage: string;
+    filteredPaintsByCategory: Paint[];
 
     constructor(private paintService: PaintService,
                 private router: Router) 
@@ -22,14 +23,7 @@ export class ViewAllPaintsPage implements OnInit {
 
 
 	ngOnInit() {
-		this.paintService.getPaints().subscribe(
-			response => {
-				this.paints = response.paints
-			},
-			error => {
-				this.errorMessage = error
-			}
-		);
+		this.refreshPaints();
     }
     
     ionViewWillEnter() {
@@ -37,7 +31,7 @@ export class ViewAllPaintsPage implements OnInit {
     }
 
     viewPaintDetails(event, paint) {
-        this.router.navigate(['/viewPaintDetails' + paint.paintId]);
+        this.router.navigate(["/viewPaintDetails/" + paint.paintId]);
     }
 
     refreshPaints() {
@@ -46,8 +40,19 @@ export class ViewAllPaintsPage implements OnInit {
 				this.paints = response.paints
 			},
 			error => {
-				this.errorMessage = error
+				this.errorMessage = error   
 			}
 		);
+    }
+
+    filterPaintsByCategory() {
+        this.paintService.getFilteredPaintsByCategories().subscribe(
+            response => {
+                this.filteredPaintsByCategory = response.filteredPaintsByCategory
+            },
+            error => {
+                this.errorMessage = error;
+            }
+        )
     }
 }
