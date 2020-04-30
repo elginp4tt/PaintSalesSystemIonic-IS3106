@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Filter Paints By Categories</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card>
+        <ion-card-content>
+            <p>List of Paint Categories</p>
+            <ion-list>
+                <ion-item *ngFor = "let paintCategory of paintCategories">
+                    <ion-label>{{paintCategory.categoryName}}</ion-label>
+                    <ion-checkbox slot = "end" (ionChange)= "addToFilteredCategoriesList($event, paintCategory)"></ion-checkbox>
+                </ion-item>
+            </ion-list>
+            <ion-button (click) = "closeModal()">
+                Filter
+            </ion-button>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

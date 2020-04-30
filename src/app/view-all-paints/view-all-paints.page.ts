@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+
 
 import { PaintService } from '../paint.service';
 import { Paint } from '../paint';
+import { FilterPaintsByCategoriesModalPage } from '../filter-paints-by-categories-modal/filter-paints-by-categories-modal.page';
+import { isRegExp } from 'util';
+import { PaintCategory } from '../paint-category';
 
 
 @Component({
@@ -14,10 +19,11 @@ export class ViewAllPaintsPage implements OnInit {
 	
 	paints: Paint[];
     errorMessage: string;
-    filteredPaintsByCategory: Paint[];
+    paintsFilteredByCategory: Paint[] = [];
 
     constructor(private paintService: PaintService,
-                private router: Router) 
+                private router: Router,
+                private modalController: ModalController) 
     {		
 	}
 
@@ -27,6 +33,8 @@ export class ViewAllPaintsPage implements OnInit {
     }
     
     ionViewWillEnter() {
+        console.log("ionViewWillEnter");
+
         this.refreshPaints();
     }
 
@@ -35,24 +43,49 @@ export class ViewAllPaintsPage implements OnInit {
     }
 
     refreshPaints() {
-        this.paintService.getPaints().subscribe(
-			response => {
-				this.paints = response.paints
-			},
-			error => {
-				this.errorMessage = error   
-			}
-		);
+        if(this.paintsFilteredByCategory.length == 0) {
+            this.paintService.getPaints().subscribe(
+                response => {
+                    this.paints = response.paints
+                },
+                error => {
+                    this.errorMessage = error   
+                }
+            ); 
+        } else {
+            this.paints = this.paintsFilteredByCategory;
+        }
+        console.log("Paints filtered by category");
+        console.log(this.paintsFilteredByCategory);
+
+        
     }
 
-    filterPaintsByCategory() {
-        this.paintService.getFilteredPaintsByCategories().subscribe(
-            response => {
-                this.filteredPaintsByCategory = response.filteredPaintsByCategory
-            },
-            error => {
-                this.errorMessage = error;
+    async presentFilterPaintsByCategoriesModal() {
+        const filterPaintsByCategoriesModal = await this.modalController.create({
+            component: FilterPaintsByCategoriesModalPage,
+        });
+
+        filterPaintsByCategoriesModal.onDidDismiss().then((event) => {
+            console.log("received cat ids");
+            console.log(event.data.filteredCategoryIds);
+            let filteredCategoryIds: number[] = event.data.filteredCategoryIds;
+
+            //iterate over all paints
+            for (var i = 0; i < this.paints.length; i++) {
+                //get each paint's categories
+                let pc: PaintCategory[] = this.paints[i].paintCategories;
+                //check if the selected categories are found 
+                for (var j = 0; j < pc.length; j++) {
+                    if (filteredCategoryIds.includes(pc[j].paintCategoryId)) {
+                        this.paintsFilteredByCategory.push(this.paints[i]);
+                    }
+                }
             }
-        )
+
+            this.refreshPaints();
+        })
+
+        return await filterPaintsByCategoriesModal.present();
     }
 }

@@ -63,6 +63,15 @@ const routes: Routes = [
     path: 'overlay-paint',
     loadChildren: () => import('./overlay-paint/overlay-paint.module').then( m => m.OverlayPaintPageModule)
   },
+  {
+    path: 'filter-paints-by-categories-modal',
+    loadChildren: () => import('./filter-paints-by-categories-modal/filter-paints-by-categories-modal.module').then( m => m.FilterPaintsByCategoriesModalPageModule)
+  },  {
+    path: 'filter-paints-by-tags-modal',
+    loadChildren: () => import('./filter-paints-by-tags-modal/filter-paints-by-tags-modal.module').then( m => m.FilterPaintsByTagsModalPageModule)
+  },
+
+
 ];
 
 @NgModule({

@@ -23,7 +23,7 @@ export class PaintCategoryService {
   
   getPaintCategories(): Observable<any>
 	{
-		return this.httpClient.get<any>(this.baseUrl).pipe
+		return this.httpClient.get<any>(this.baseUrl + "/retrieveAllPaintCategories").pipe
 		(
 			catchError(this.handleError)
 		);
