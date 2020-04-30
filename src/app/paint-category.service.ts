@@ -5,7 +5,6 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { UtilityService } from './utility.service';
-import { PaintCategory } from './paint-category';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +22,7 @@ export class PaintCategoryService {
   
   getPaintCategories(): Observable<any>
 	{
-		return this.httpClient.get<any>(this.baseUrl).pipe
+		return this.httpClient.get<any>(this.baseUrl + "/retrieveAllPaintCategories").pipe
 		(
 			catchError(this.handleError)
 		);

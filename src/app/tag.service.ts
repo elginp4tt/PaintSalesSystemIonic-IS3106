@@ -5,7 +5,6 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { UtilityService } from './utility.service';
-import { PaintTag } from './paint-tag';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +21,7 @@ export class TagService {
   
   getPaintTags(): Observable<any>
 	{
-		return this.httpClient.get<any>(this.baseUrl).pipe
+		return this.httpClient.get<any>(this.baseUrl + "/retrieveAllPaintTags").pipe
 		(
 			catchError(this.handleError)
 		);

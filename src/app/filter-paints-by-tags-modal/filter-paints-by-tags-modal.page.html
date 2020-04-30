@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Filter Paints By Tags</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card>
+        <ion-card-content>
+            <p>List of Paint Tags</p>
+            <ion-list>
+                <ion-item *ngFor = "let paintTag of paintTags">
+                    <ion-label>{{paintTag.tagName}}</ion-label>
+                    <ion-checkbox slot = "end" (ionChange)= "addToFilteredTagsList($event, paintTag)"></ion-checkbox>
+                </ion-item>
+            </ion-list>
+            <ion-button (click) = "closeModal()">
+                Filter
+            </ion-button>
+        </ion-card-content>
+    </ion-card>
+</ion-content>
