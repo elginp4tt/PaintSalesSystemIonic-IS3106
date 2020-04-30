@@ -5,7 +5,6 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { UtilityService } from './utility.service';
-import { PaintCategory } from './paint-category';
 
 @Injectable({
   providedIn: 'root'

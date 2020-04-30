@@ -8,6 +8,8 @@ import { Paint } from '../paint';
 import { FilterPaintsByCategoriesModalPage } from '../filter-paints-by-categories-modal/filter-paints-by-categories-modal.page';
 import { isRegExp } from 'util';
 import { PaintCategory } from '../paint-category';
+import { FilterPaintsByTagsModalPage } from '../filter-paints-by-tags-modal/filter-paints-by-tags-modal.page';
+import { PaintTag } from '../paint-tag';
 
 
 @Component({
@@ -20,6 +22,7 @@ export class ViewAllPaintsPage implements OnInit {
 	paints: Paint[];
     errorMessage: string;
     paintsFilteredByCategory: Paint[] = [];
+    paintsFilteredByTags: Paint[] = [];
 
     constructor(private paintService: PaintService,
                 private router: Router,
@@ -43,7 +46,7 @@ export class ViewAllPaintsPage implements OnInit {
     }
 
     refreshPaints() {
-        if(this.paintsFilteredByCategory.length == 0) {
+        if(this.paintsFilteredByCategory.length == 0 && this.paintsFilteredByTags.length == 0) {
             this.paintService.getPaints().subscribe(
                 response => {
                     this.paints = response.paints
@@ -53,8 +56,14 @@ export class ViewAllPaintsPage implements OnInit {
                 }
             ); 
         } else {
-            this.paints = this.paintsFilteredByCategory;
+            if (this.paintsFilteredByCategory.length != 0) {
+                this.paints = this.paintsFilteredByCategory;
+            }
+            else if (this.paintsFilteredByTags.length != 0) {
+                this.paints = this.paintsFilteredByTags;
+            }
         }
+
         console.log("Paints filtered by category");
         console.log(this.paintsFilteredByCategory);
 
@@ -67,8 +76,6 @@ export class ViewAllPaintsPage implements OnInit {
         });
 
         filterPaintsByCategoriesModal.onDidDismiss().then((event) => {
-            console.log("received cat ids");
-            console.log(event.data.filteredCategoryIds);
             let filteredCategoryIds: number[] = event.data.filteredCategoryIds;
 
             //iterate over all paints
@@ -77,8 +84,13 @@ export class ViewAllPaintsPage implements OnInit {
                 let pc: PaintCategory[] = this.paints[i].paintCategories;
                 //check if the selected categories are found 
                 for (var j = 0; j < pc.length; j++) {
-                    if (filteredCategoryIds.includes(pc[j].paintCategoryId)) {
-                        this.paintsFilteredByCategory.push(this.paints[i]);
+                    var selectedId = pc[j].paintCategoryId;
+                    if (filteredCategoryIds.includes(selectedId)){
+                        var selectedPaint = this.paints[i];
+                        // check if paint is already in the selected array
+                        if (!this.paintsFilteredByCategory.includes(selectedPaint)) {
+                            this.paintsFilteredByCategory.push(this.paints[i]);
+                        }
                     }
                 }
             }
@@ -87,5 +99,36 @@ export class ViewAllPaintsPage implements OnInit {
         })
 
         return await filterPaintsByCategoriesModal.present();
+    }
+
+    async presentFilterPaintsByTagsModal() {
+        const filterPaintsByTagsModal = await this.modalController.create({
+            component: FilterPaintsByTagsModalPage,
+        });
+
+        filterPaintsByTagsModal.onDidDismiss().then((event) => {
+            let filteredTagIds: number[] = event.data.filteredTagIds;
+
+            //iterate over all paints
+            for (var i = 0; i < this.paints.length; i++) {
+                //get each paint's tags
+                let pt: PaintTag[] = this.paints[i].tags;
+                //check if the selected categories are found 
+                for (var j = 0; j < pt.length; j++) {
+                    var selectedId = pt[j].tagId;
+                    if (filteredTagIds.includes(selectedId)){
+                        var selectedPaint = this.paints[i];
+                        // check if paint is already in the selected array
+                        if (!this.paintsFilteredByTags.includes(selectedPaint)) {
+                            this.paintsFilteredByTags.push(this.paints[i]);
+                        }
+                    }
+                }
+            }
+
+            this.refreshPaints();
+        })
+
+        return await filterPaintsByTagsModal.present();
     }
 }
