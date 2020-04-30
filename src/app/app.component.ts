@@ -14,28 +14,6 @@ import { SessionService } from './session.service';
 export class AppComponent implements OnInit {
   public selectedIndex = 0;
   public appPages;
-  // public appPages = [
-  //   {
-  //     title: 'Home',
-  //     url: '/home',
-  //     icon: 'home'
-  //   },
-  //   {
-  //     title: 'View All Paints',
-  //     url: '/viewAllPaints',
-  //     icon: 'arrow-forward'
-  //   },
-  // {
-  //     title: 'Create New Paint',
-  //     url: '/createNewPaint',
-  //     icon: 'arrow-forward'
-  //   },
-  //   {
-  //     title: 'Login/Logout',
-  //     url: '/login',
-  //     icon:'arrow-forward'
-  //   }
-  // ];
 
   constructor(
     private platform: Platform,
