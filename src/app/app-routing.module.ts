@@ -14,11 +14,9 @@ const routes: Routes = [
   },
   { path: 'createNewPaint', loadChildren: './create-new-paint/create-new-paint.module#CreateNewPaintPageModule', canActivate: [AuthGuard] },
   { path: 'viewAllPaints', loadChildren: './view-all-paints/view-all-paints.module#ViewAllPaintsPageModule', canActivate: [AuthGuard] },
-  { path: 'login', loadChildren: '/login/login.module#loginPageModule', canActivate: [AuthGuard] },
-  {
-    path: 'register',
-    loadChildren: () => import('./register/register.module').then(m => m.RegisterPageModule)
-  },
+  { path: 'login', loadChildren: './login/login.module#LoginPageModule'},
+  { path: 'registerCustomer', loadChildren: './register/register.module#RegisterPageModule', canActivate: [AuthGuard] },
+  { path: 'viewAllTransaction', loadChildren: './view-all-transactions/view-all-transactions.module#ViewAllTransactionsPageModule', canActivate: [AuthGuard] },
   {
     path: 'view-shopping-cart',
     loadChildren: () => import('./view-shopping-cart/view-shopping-cart.module').then(m => m.ViewShoppingCartPageModule)
