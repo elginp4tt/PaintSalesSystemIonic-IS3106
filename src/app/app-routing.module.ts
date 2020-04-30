@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
@@ -13,7 +14,8 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },  
   { path: 'viewAllPaints', loadChildren: './view-all-paints/view-all-paints.module#ViewAllPaintsPageModule', canActivate: [AuthGuard] },
-  { path: 'mixPaint', loadChildren: './mix-paint/mix-paint.module#MixPaintPageModule', canActivate: [AuthGuard] },
+  { path: 'viewPaintDetails', loadChildren: './view-paint-details/view-paint-details.module#ViewPaintDetailsPageModule', canActivate: [AuthGuard] },
+  { path: 'viewPaintDetails/:paintId', loadChildren: './view-paint-details/view-paint-details.module#ViewPaintDetailsPageModule', canActivate: [AuthGuard] },
   {
     path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
@@ -39,10 +41,6 @@ const routes: Routes = [
     loadChildren: () => import('./request-refund/request-refund.module').then( m => m.RequestRefundPageModule)
   },
   {
-    path: 'view-paint-details',
-    loadChildren: () => import('./view-paint-details/view-paint-details.module').then( m => m.ViewPaintDetailsPageModule)
-  },
-  {
     path: 'request-paint-service',
     loadChildren: () => import('./request-paint-service/request-paint-service.module').then( m => m.RequestPaintServicePageModule)
   },
@@ -66,6 +64,16 @@ const routes: Routes = [
     path: 'overlay-paint',
     loadChildren: () => import('./overlay-paint/overlay-paint.module').then( m => m.OverlayPaintPageModule)
   },
+  {
+    path: 'filter-paints-by-categories-modal',
+    loadChildren: () => import('./filter-paints-by-categories-modal/filter-paints-by-categories-modal.module').then( m => m.FilterPaintsByCategoriesModalPageModule)
+  },  {
+    path: 'filter-paints-by-tags-modal',
+    loadChildren: () => import('./filter-paints-by-tags-modal/filter-paints-by-tags-modal.module').then( m => m.FilterPaintsByTagsModalPageModule)
+>>>>>>> 4b3f47879cb5371787d913ac25ae47df1265202a
+  },
+
+
 ];
 
 @NgModule({

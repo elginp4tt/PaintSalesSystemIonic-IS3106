@@ -13,10 +13,10 @@
     <ion-card>
         <ion-card-content>
             <div *ngIf = 'retrievePaintError == true' style="color: red;">
-                Paint Id ({paintId}) does not exist!
+                Paint Id {{paintId}} does not exist!
             </div>
             
-            <ion-list *ngIf = 'retrievePaintError == false ** paintToView != null'>
+            <ion-list *ngIf = 'retrievePaintError == false && paintToView != null'>
                 <ion-item>
                     <ion-label><b>Paint ID</b></ion-label>
                     {{paintToView.paintId}}

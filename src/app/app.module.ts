@@ -11,6 +11,8 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { FilterPaintsByCategoriesModalPageModule } from './filter-paints-by-categories-modal/filter-paints-by-categories-modal.module';
+import { FilterPaintsByTagsModalPageModule } from './filter-paints-by-tags-modal/filter-paints-by-tags-modal.module';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { HttpClientModule } from '@angular/common/http';
     IonicModule.forRoot(),
     AppRoutingModule,
 	FormsModule,
-	HttpClientModule
+    HttpClientModule,
+    FilterPaintsByCategoriesModalPageModule,
+    FilterPaintsByTagsModalPageModule
   ],
   providers: [
     StatusBar,

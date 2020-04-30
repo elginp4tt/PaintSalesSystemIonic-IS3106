@@ -49,9 +49,15 @@ export class PaintService {
 		(
 			catchError(this.handleError)
 		);
-	}
-	
-	
+    }
+    
+    getFilteredPaintsByCategories(): Observable<any> 
+    {
+        return this.httpClient.get<any>(this.baseUrl + "/filterPaintsByCategories").pipe
+		(
+			catchError(this.handleError)
+		);  
+    }	
 	
 	private handleError(error: HttpErrorResponse)
 	{
