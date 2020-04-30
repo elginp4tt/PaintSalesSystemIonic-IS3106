@@ -23,8 +23,8 @@ export class AppComponent implements OnInit {
       icon: 'arrow-forward'
     },
 	{
-      title: 'Create New Paint',
-      url: '/createNewPaint',
+      title: 'Create Custom Paint',
+      url: '/mix-paint',
       icon: 'arrow-forward'
     }
   ];

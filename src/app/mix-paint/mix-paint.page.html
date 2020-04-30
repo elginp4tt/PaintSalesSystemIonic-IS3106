@@ -1,9 +1,49 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>MixPaint</ion-title>
+    <ion-title>Mix Paint</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+<ion-list>
+  <ion-list-header>
+    <ion-label>
+      Mix Multiple Paints
+    </ion-label>
+  </ion-list-header>
+
+  <ion-item>
+    <ion-label>Select Paints to Mix</ion-label>
+    <ion-select [(ngModel)]="selectedPaints" (ionChange)="getSelectedPaintValue(selectedPaints)" multiple="true">
+      <ion-select-option *ngFor="let paint of paints">{{paint.name}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+</ion-list>
+
+<form [formGroup]="mixPaintForm" (ngSubmit)="submit(mixPaintForm)">
+<ion-list>
+	<ion-item>
+		<ion-grid>
+			<ion-row *ngFor="let paint of selectedPaints">
+				<ion-col [(ngModel)]="paintIds">{{paint.paintId}}</ion-col>
+				<ion-col>{{paint.name}}</ion-col>
+				<ion-col>{{paint.colourCode}}</ion-col>
+				<ion-col ion-item [(ngModel)]="percentages" ><ion-input formControlName="percentage" type="number" value="">Percentage</ion-input></ion-col>
+				<div *ngFor="let error of errorMessages.percentage">
+				  <ng-container *ngIf="percentage.hasError(error.type) && (percentage.dirty || percentage.touched)">
+					<small class="error-message">{{error.message}}</small>
+				  </ng-container>
+				</div>
+			</ion-row>
+			
+			<ion-button [disabled]=!mixPaintForm.valid" type="submit" expand="block">Submit</ion-button>
+		</ion-grid>
+	</ion-item>
+</ion-list>
 
 </ion-content>
+
+<ion-footer>
+	<ion-title size="small">&copy; 2020 IS3106. All rights reserved.</ion-title>
+</ion-footer>

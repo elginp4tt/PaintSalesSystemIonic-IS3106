@@ -12,8 +12,8 @@ const routes: Routes = [
     path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },  
-  { path: 'createNewPaint', loadChildren: './create-new-paint/create-new-paint.module#CreateNewPaintPageModule', canActivate: [AuthGuard] },
   { path: 'viewAllPaints', loadChildren: './view-all-paints/view-all-paints.module#ViewAllPaintsPageModule', canActivate: [AuthGuard] },
+  { path: 'mixPaint', loadChildren: './mix-paint/mix-paint.module#MixPaintPageModule', canActivate: [AuthGuard] },
   {
     path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
