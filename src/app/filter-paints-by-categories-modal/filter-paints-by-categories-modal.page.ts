@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { NavParams } from '@ionic/angular';
 import { ModalController } from '@ionic/angular'
 import { PaintCategory } from '../paint-category';
 import { PaintCategoryService } from "../paint-category.service";
@@ -14,15 +13,12 @@ import { filter } from 'rxjs/operators';
 })
 export class FilterPaintsByCategoriesModalPage implements OnInit {
 
-    paintCategoryToAdd: PaintCategory;
     paintCategories: PaintCategory[];
-    errorMessage: string
-    checkedCategories: boolean[];
+    errorMessage: string;
     filteredCategoryIds: number[] = [];
     
     	
-	constructor(private navParams: NavParams,
-                private modalController : ModalController,
+	constructor(private modalController : ModalController,
                 private paintCategoryService: PaintCategoryService)
     {
     }
