@@ -1,9 +1,45 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon slot="start" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title>ViewTransactionDetails</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-card>
+    <ion-card-content>
+      <div *ngIf='retrieveTransactionError == true' style="color: red;">
+        Transaction Id {{transactionId}} does not exist!
+      </div>
+
+      <ion-list *ngIf='retrieveTransactionError == false && paintToView != null'>
+        <ion-item>
+          <ion-label><b>Transaction Line Item ID</b></ion-label>
+          {{transaction.transactionLineItemId}}
+        </ion-item>
+
+        <ion-item>
+          <ion-label><b>Item Name</b></ion-label>
+          {{transaction.itemName}}
+        </ion-item>
+
+        <ion-item>
+          <ion-label><b>Quantity</b></ion-label>
+          {{transaction.quantity}}
+        </ion-item>
+
+        <ion-item>
+          <ion-label><b>Price</b></ion-label>
+          ${{transaction.price}}
+        </ion-item>
+      </ion-list>
+
+
+    </ion-card-content>
+  </ion-card>
 
 </ion-content>

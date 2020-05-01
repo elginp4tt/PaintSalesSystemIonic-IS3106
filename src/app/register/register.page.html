@@ -12,14 +12,6 @@
 <ion-content>
   <ion-card>
     <ion-card-content>
-      <div *ngIf="resultSuccess == true" style="color: blue;">
-        {{message}}
-      </div>
-
-      <div *ngIf="resultError == true" style="color: red;">
-        {{message}}
-      </div>
-
       <form #createCustomerForm="ngForm" (ngSubmit)="register(createCustomerForm)">
         <div style="color: red;">
 

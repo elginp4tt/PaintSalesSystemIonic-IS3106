@@ -7,6 +7,8 @@ import { Customer } from '../customer';
 
 import { SessionService } from '../session.service';
 import { CustomerService } from '../customer.service';
+import { ToastController } from '@ionic/angular';
+import { CssSelector } from '@angular/compiler';
 
 @Component({
 	selector: 'app-register',
@@ -32,7 +34,8 @@ export class RegisterPage implements OnInit {
 
 	constructor(private router: Router,
 		private activatedRoute: ActivatedRoute,
-		private customerService: CustomerService) {
+		private customerService: CustomerService,
+		public toastController : ToastController) {
 		this.submitted = false;
 		this.newCustomer = new Customer();
 
@@ -46,15 +49,7 @@ export class RegisterPage implements OnInit {
 	register(registrationForm: NgForm) {
 		this.submitted = true;
 
-
-
 		if (registrationForm.valid) {
-			console.log("********** register.page.ts cust: " + this.newCustomer.email);
-			console.log("********** register.page.ts cust: " + this.newCustomer.username);
-			console.log("********** register.page.ts cust: " + this.newCustomer.password);
-			console.log("********** register.page.ts cust: " + this.newCustomer.firstName);
-			console.log("********** register.page.ts cust: " + this.newCustomer.lastName);
-			console.log("********** register.page.ts cust: " + this.newCustomer.homeAddress);
 			this.customerService.createNewCustomer(this.newCustomer).subscribe(
 				response => {
 					let newCustomerId: number = response.customerId;
@@ -64,16 +59,18 @@ export class RegisterPage implements OnInit {
 
 					this.newCustomer = new Customer();
 					this.submitted = false;
+					this.registerSuccess();
 					registrationForm.reset();
 				},
 				error => {
 					this.registrationError = true;
 					this.registrationSuccess = false;
+					this.registerFailure();
 					this.message = "An error has occurred while creating the new customer: " + error;
-
 				}
 			);
 		}
+		this.registerFailure();
 	}
 
 	back(): void {
@@ -83,6 +80,28 @@ export class RegisterPage implements OnInit {
 	clear(): void {
 		this.submitted = false;
 		this.newCustomer = new Customer();
+	}
+
+	async registerSuccess (){
+		const toast = document.createElement('ion-toast');
+		toast.message = "Registration is Successful";
+		toast.position = "top";
+		toast.duration = 2000;
+		toast.style.textAlign = "center";
+
+		document.body.appendChild(toast);
+		return toast.present();
+	}
+
+	async registerFailure (){
+		const toast = document.createElement('ion-toast');
+		toast.message = "Registration is not successful, you have either missing or incorrect fields!";
+		toast.position = "top";
+		toast.duration = 2000;
+		toast.style.textAlign = "center";
+		
+		document.body.appendChild(toast);
+		return toast.present();
 	}
 
 }

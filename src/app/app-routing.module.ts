@@ -18,6 +18,8 @@ const routes: Routes = [
   { path: 'login', loadChildren: './login/login.module#LoginPageModule'},
   { path: 'registerCustomer', loadChildren: './register/register.module#RegisterPageModule', canActivate: [AuthGuard] },
   { path: 'viewAllTransaction', loadChildren: './view-all-transactions/view-all-transactions.module#ViewAllTransactionsPageModule', canActivate: [AuthGuard] },
+  { path: 'viewTransactionDetails', loadChildren: './view-transaction-details/view-transaction-details.module#ViewTransactionDetailsPageModule', canActivate: [AuthGuard] },
+  { path: 'viewTransactionDetails/:transactionId', loadChildren: './view-transaction-details/view-transaction-details.module#ViewTransactionDetailsPageModule', canActivate: [AuthGuard] },
   {
     path: 'view-shopping-cart',
     loadChildren: () => import('./view-shopping-cart/view-shopping-cart.module').then( m => m.ViewShoppingCartPageModule)
