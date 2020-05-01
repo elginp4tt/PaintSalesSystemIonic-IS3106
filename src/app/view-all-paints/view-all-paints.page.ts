@@ -131,4 +131,18 @@ export class ViewAllPaintsPage implements OnInit {
 
         return await filterPaintsByTagsModal.present();
     }
+
+    reset() {
+        this.paintService.getPaints().subscribe(
+            response => {
+                this.paints = response.paints
+            },
+            error => {
+                this.errorMessage = error   
+            }
+        ); 
+
+        this.paintsFilteredByCategory = [];
+        this.paintsFilteredByTags =[];
+    }
 }
