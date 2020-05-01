@@ -13,7 +13,9 @@ import { SessionService } from './session.service';
 })
 export class AppComponent implements OnInit {
   public selectedIndex = 0;
+
   public appPages;
+
 
   constructor(
     private platform: Platform,

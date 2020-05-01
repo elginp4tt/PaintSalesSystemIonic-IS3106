@@ -21,10 +21,6 @@ export class MixPaintPage implements OnInit {
 	
 	errorMessage: string;
 	
-	get percentage() {
-		return this.mixPaintForm.get('percentage');
-	}
-	
 	public errorMessages = {
 		percentage: [
 			{type:  'max', message: 'Please ensure percentage is below 100'}
@@ -71,10 +67,6 @@ export class MixPaintPage implements OnInit {
     
     ionViewWillEnter() {
         this.refreshPaints();
-    }
-
-    viewPaintDetails(event, paint) {
-        this.router.navigate(['/viewPaintDetails' + paint.paintId]);
     }
 
     refreshPaints() {
