@@ -1,9 +1,120 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>register</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon slot="start" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Customer Registration</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-card>
+    <ion-card-content>
+      <div *ngIf="resultSuccess == true" style="color: blue;">
+        {{message}}
+      </div>
 
+      <div *ngIf="resultError == true" style="color: red;">
+        {{message}}
+      </div>
+
+      <form #createCustomerForm="ngForm" (ngSubmit)="register(createCustomerForm)">
+        <div style="color: red;">
+
+          <div *ngIf="email.invalid && (email.dirty || email.touched || submitted)" class="errorText">
+            <div *ngIf="email.errors.required">
+              Email is required.
+            </div>
+          </div>
+
+          <div *ngIf="username.invalid && (username.dirty || username.touched || submitted)" class="errorText">
+            <div *ngIf="username.errors.required">
+              Username is required.
+            </div>
+          </div>
+
+          <div *ngIf="password.invalid && (password.dirty || password.touched || submitted)" class="errorText">
+            <div *ngIf="password.errors.required">
+              Password is required.
+            </div>
+          </div>
+
+          <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched || submitted)" class="errorText">
+            <div *ngIf="firstName.errors.required">
+              First Name is required.
+            </div>
+          </div>
+
+          <div *ngIf="lastName.invalid && (lastName.dirty ||lastName.touched || submitted)" class="errorText">
+            <div *ngIf="lastName.errors.required">
+              Last Name is required.
+            </div>
+          </div>
+
+          <div *ngIf="homeAddress.invalid && (homeAddress.dirty ||homeAddress.touched || submitted)" class="errorText">
+            <div *ngIf="homeAddress.errors.required">
+              Address is required.
+            </div>
+          </div>
+        </div>
+
+        <ion-list>
+          <ion-item>
+            <ion-label><b>Email</b></ion-label>
+            <ion-input placeholder="Enter Email Here" type="email" id="email" name="email"
+              [(ngModel)]="newCustomer.email" required="true" #email="ngModel"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label><b>Username</b></ion-label>
+            <ion-input placeholder="Enter Username Here" type="text" id="username" name="username"
+              [(ngModel)]="newCustomer.username" required="true" #username="ngModel"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label><b>Password</b></ion-label>
+            <ion-input placeholder="Enter Password Here" type="password" id="password" name="password"
+              [(ngModel)]="newCustomer.password" required="true" #password="ngModel"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label><b>First Name</b></ion-label>
+            <ion-input placeholder="Enter First Name Here" type="firstName" id="firstName" name="firstName"
+              [(ngModel)]="newCustomer.firstName" required="true" #firstName="ngModel"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label><b>Last Name</b></ion-label>
+            <ion-input placeholder="Enter Last Name Here" type="lastName" id="lastName" name="lastName"
+              [(ngModel)]="newCustomer.lastName" required="true" #lastName="ngModel"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label><b>Addresss</b></ion-label>
+            <ion-input placeholder="Enter Address Here" type="homeAddress" id="homeAddress" name="homeAddress"
+              [(ngModel)]="newCustomer.homeAddress" required="true" #homeAddress="ngModel"></ion-input>
+          </ion-item>
+
+          <ion-item >
+            <ion-button expand="block" color="danger" (click)="clear()">
+              Clear
+            </ion-button>
+            <ion-button expand="block" type="submit" ion-button block>
+              Create
+            </ion-button>
+          </ion-item>
+
+
+        </ion-list>
+
+      </form>
+
+    </ion-card-content>
+  </ion-card>
 </ion-content>
+
+<ion-footer>
+  <ion-title size="small">&copy; 2020 IS3106. All rights reserved.</ion-title>
+</ion-footer>

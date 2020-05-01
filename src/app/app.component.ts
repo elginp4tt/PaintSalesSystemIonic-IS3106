@@ -4,6 +4,8 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
+import { SessionService } from './session.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -11,31 +13,19 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 })
 export class AppComponent implements OnInit {
   public selectedIndex = 0;
-  public appPages = [
-    {
-      title: 'Home',
-      url: '/home',
-      icon: 'home'
-    },
-    {
-      title: 'View All Paints',
-      url: '/viewAllPaints',
-      icon: 'arrow-forward'
-    },
-	{
-      title: 'Create Custom Paint',
-      url: '/mixPaint',
-      icon: 'arrow-forward'
-    }
-  ];
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
+
+  public appPages;
+
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    public sessionService: SessionService
   ) {
     this.initializeApp();
+
+    this.updateMainMenu();
   }
 
   initializeApp() {
@@ -49,6 +39,59 @@ export class AppComponent implements OnInit {
     const path = window.location.pathname.split('folder/')[1];
     if (path !== undefined) {
       this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
+    }
+
+    this.updateMainMenu();
+  }
+
+  onActivate(componentReference)
+	{
+		console.log('********** AppComponent.onActivate: ' + componentReference.componentType);
+		this.updateMainMenu();
+  }
+  
+  updateMainMenu() {
+    if (this.sessionService.getIsLogin()) { //What you want the customer to see after logged in
+      this.appPages = [
+        {
+          title: 'Home',
+          url: '/home',
+          icon: 'home'
+        },
+        {
+          title: 'View All Paints',
+          url: '/viewAllPaints',
+          icon: 'arrow-forward'
+        },
+        {
+          title: 'View My Past Transactions',
+          url: '/viewAllTransaction',
+          icon: 'list'
+        },
+        {
+          title: 'Logout',
+          url: '/login',
+          icon: 'log-out'
+        },
+      ];
+    } else { //What you want the customer to see before logged in
+      this.appPages = [
+        {
+          title: 'Home',
+          url: '/home',
+          icon: 'home'
+        },
+        {
+          title: 'View All Paints',
+          url: '/viewAllPaints',
+          icon: 'arrow-forward'
+        },
+        {
+          title: 'Login/Register',
+          url: '/login',
+          icon: 'log-in'
+        }
+      ];
     }
   }
 }
