@@ -104,4 +104,18 @@ export class RegisterPage implements OnInit {
 		return toast.present();
 	}
 
+	check (email){
+		console.log("******here!");
+		if (email.invalid && (email.dirty || email.touched )){
+		}
+		const toast = document.createElement('ion-toast');
+		toast.message = "Registration is not successful, you have either missing or incorrect fields!";
+		toast.position = "top";
+		toast.duration = 2000;
+		toast.style.textAlign = "center";
+		
+		document.body.appendChild(toast);
+		return toast.present();
+	}
+
 }
