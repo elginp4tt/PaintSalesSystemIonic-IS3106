@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
     },
 	{
       title: 'Create Custom Paint',
-      url: '/mix-paint',
+      url: '/mixPaint',
       icon: 'arrow-forward'
     }
   ];
