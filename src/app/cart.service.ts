@@ -41,9 +41,12 @@ export class CartService {
   
 	addItem(transactionLineItem?: TransactionLineItem){
 		let added = false;
+		console.log("***HERE");
 		for (let i of this.cart) {
+			console.log("***HERE2");
 			if (i.itemName === transactionLineItem.itemName) {
-				i.quantity += 1;
+				console.log("***HERE3");
+				i.quantity += +transactionLineItem.quantity;
 				added = true;
 				break;
 			}

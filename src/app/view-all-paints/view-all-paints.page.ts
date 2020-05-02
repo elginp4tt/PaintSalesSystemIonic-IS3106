@@ -152,12 +152,14 @@ export class ViewAllPaintsPage implements OnInit {
     }
 
     presentEnterQty(paint) {
+        this.paintQty = 0;
         if (this.sessionService.getIsLogin() == false){
             this.loginToast();
             return false;
         }
         const alert = document.createElement('ion-alert');
         alert.header = "May I Know How Much You need?";
+        alert.subHeader = "Stocks left: " + paint.quantityOnHand;
         alert.inputs = [
             {
                 name: 'quantity',
@@ -219,7 +221,7 @@ export class ViewAllPaintsPage implements OnInit {
 
     async loginToast (){
         const toast = document.createElement('ion-toast');
-		toast.message = "Please Login Before You Start To Add Items in Cart!";
+		toast.message = "Please Login Before You Start To Add/View Items in Cart!";
 		toast.position = "top";
 		toast.duration = 2000;
 		toast.style.textAlign = "center";
@@ -228,10 +230,14 @@ export class ViewAllPaintsPage implements OnInit {
 		return toast.present();
     }
 
-    viewShoppingCart() : void {
+    viewShoppingCart() {
+        if (this.sessionService.getIsLogin() == false){
+            this.loginToast();
+            return false;
+        }
         this.router.navigate(['/viewCart']);
     }
-    
+
     reset() {
         this.paintService.getPaints().subscribe(
             response => {
