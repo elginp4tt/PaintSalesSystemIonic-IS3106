@@ -7,6 +7,7 @@ import { SessionService } from '../session.service';
 import { CustomerService } from '../customer.service';
 
 import { Customer } from '../customer';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +27,9 @@ export class LoginPage implements OnInit {
 
 	constructor(private router: Router,
 				private sessionService: SessionService,
-				private customerService: CustomerService) { 
+				private customerService: CustomerService,
+				private appComponent : AppComponent
+				) { 
 	
 		this.submitted = false;
 	
@@ -56,12 +59,12 @@ export class LoginPage implements OnInit {
 			this.customerService.customerLogin(this.username, this.password).subscribe(
 				response => {										
 					let customer: Customer = response.customerEntity;				
-					
 					if(customer != null)
 					{
 						this.sessionService.setIsLogin(true);
 						this.sessionService.setCurrentCustomer(customer);					
-						this.loginError = false;					
+						this.loginError = false;
+						this.appComponent.updateMainMenu();
 					}
 					else
 					{
@@ -83,11 +86,17 @@ export class LoginPage implements OnInit {
 	{
 		this.sessionService.setIsLogin(false);
 		this.sessionService.setCurrentCustomer(null);		
+		this.appComponent.updateMainMenu();
+
 	}
 	
 	back()
 	{
 		this.router.navigate(["/home"]);
+	}
+
+	registerCustomer (){
+		this.router.navigate(["/registerCustomer"]);
 	}
 
 }

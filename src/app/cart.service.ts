@@ -8,6 +8,9 @@ import { UtilityService } from './utility.service';
 import { SessionService } from './session.service';
 import { TransactionService } from './transaction.service';
 import { TransactionLineItem } from './transaction-line-item';
+import { PaintTag } from './paint-tag';
+import { PaintTransaction } from './paint-transaction';
+import { DeliveryServiceTransaction } from './delivery-service-transaction';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +28,7 @@ export class CartService {
 				private sessionService: SessionService) {
 				  
 		this.baseUrl = this.utilityService.getRootPath() + 'Cart';
+		this.cart = [];
 	}
   
 	getCart() {
@@ -50,6 +54,14 @@ export class CartService {
 		}
 		this.itemCount.next(this.itemCount.value + 1);
 		this.getItemCount();
+
+		console.log("**********I am at cart");
+		for (var i =0; i < this.cart.length; i++){
+			console.log("*** Cart item: " + this.cart[i].itemName);
+			console.log("*** Cart item: " + this.cart[i].quantity);
+			console.log("*** Cart item: " + this.cart[i].price);		
+			console.log("*** Cart item: " , this.cart[i] instanceof PaintTransaction);		
+		}
 	}
 	  
 	decreaseItem(transactionLineItem?: TransactionLineItem) {

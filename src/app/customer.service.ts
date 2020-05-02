@@ -34,11 +34,11 @@ export class CustomerService {
 	
 	createNewCustomer(newCustomer: Customer): Observable<any>
 	{		
-		let createCustomerReq = {
-			"customer": newCustomer,
+		let createNewCustomerReq = {
+			"newCustomer": newCustomer,
 		};
 		
-		return this.httpClient.put<any>(this.baseUrl, createCustomerReq, httpOptions).pipe
+		return this.httpClient.put<any>(this.baseUrl + "/customer", createNewCustomerReq, httpOptions).pipe
 		(
 			catchError(this.handleError)
 		);
@@ -56,7 +56,7 @@ export class CustomerService {
 		} 
 		else 
 		{		
-			errorMessage = "A HTTP error has occurred: " + `HTTP ${error.status}: ${error.error.message}`;
+			errorMessage = "A HTTP error has occurred: " + `HTTP ${error.status}: ${error.message}`;
 		}
 		
 		return throwError(errorMessage);		

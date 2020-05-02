@@ -1,9 +1,40 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>ViewAllTransactions</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+          <ion-icon slot="start" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>My Past Transactions</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-card>
 
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>Transaction Id</ion-col>
+          <ion-col>Action</ion-col>
+        </ion-row>
+
+        <ion-row *ngFor="let transaction of transactions">
+          <ion-col>{{transaction.transactionId}}</ion-col>
+          <ion-col>
+            <ion-button (click) = 'viewTransactionDetails($event, transaction)'>
+              <ion-icon slot="start" name="arrow-forward"></ion-icon>
+              View More Details
+          </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </ion-card-content>
+
+  </ion-card>
 </ion-content>
+
+<ion-footer>
+  <ion-title size="small">&copy; 2020 IS3106. All rights reserved.</ion-title>
+</ion-footer>
