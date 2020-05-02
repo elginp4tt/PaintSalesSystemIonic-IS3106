@@ -1,22 +1,63 @@
 <ion-header>
-	<ion-toolbar>
-		<ion-buttons slot="start">
-			<ion-menu-button></ion-menu-button>
-		</ion-buttons>
-		<ion-title>
-			View All Paints
-		</ion-title>
-	</ion-toolbar>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+            View All Paints
+        </ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-	<ion-card>      
-		<ion-card-header>        
-			<ion-card-title>View All Paints</ion-card-title>
-		</ion-card-header>
-		<ion-card-content>
-		
-			<div *ngIf="errorMessage">
+    <ion-list>
+        <ion-list-header color="secondary">Paints Available</ion-list-header>
+
+        <ion-item *ngFor="let paint of paints">
+            <ion-avatar slot="start">
+                <!-- <img src=""> -->
+            </ion-avatar>
+            <ion-label>
+                <h2>{{paint.name}}</h2>
+                <h3>Colour code: {{paint.colourCode}}</h3>
+                <p>ID: {{paint.paintId}}</p>
+            </ion-label>
+
+            <ion-button (click)="viewPaintDetails($event, paint)" slot="end" color="tertiary">
+                <ion-icon name="search-outline"></ion-icon>           
+            </ion-button>
+        </ion-item>
+    </ion-list>
+
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)" [disabled]="endReached == true">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+    <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+        <ion-fab-button color="warning">
+            <ion-icon name="funnel-outline"></ion-icon>        
+        </ion-fab-button>
+        <ion-fab-list side="top">
+            <ion-fab-button (click) = "presentFilterPaintsByTagsModal()">
+                <ion-icon name="pricetags-outline"></ion-icon>            
+            </ion-fab-button>
+            <ion-fab-button (click) = "presentFilterPaintsByCategoriesModal()">
+                <ion-icon name="list-outline"></ion-icon>
+            </ion-fab-button>
+        </ion-fab-list>
+    </ion-fab>
+
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button color="danger" (click) = "reset()">
+            <ion-icon name="refresh-outline"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+
+    
+
+    <!-- <div *ngIf="errorMessage">
 				{{errorMessage}}
 			</div>
 			
@@ -41,16 +82,14 @@
                         </ion-button>
                     </ion-col>
                 </ion-row>
-            </ion-grid>
-        </ion-card-content>
-        <ion-card-content>
+            </ion-grid> -->
+    <!-- <ion-card-content>
             <ion-button color = "secondary" (click) = "presentFilterPaintsByCategoriesModal()">Filter by Category</ion-button>
             <ion-button color = "secondary" (click) = "presentFilterPaintsByTagsModal()">Filter by Tag</ion-button>
             <ion-button color = "secondary" (click) = "reset()">Reset</ion-button>
-        </ion-card-content>
-	</ion-card>
+        </ion-card-content> -->
 </ion-content>
 
 <ion-footer>
-	<ion-title size="small">&copy; 2020 IS3106. All rights reserved.</ion-title>
+    <ion-title size="small">&copy; 2020 IS3106. All rights reserved.</ion-title>
 </ion-footer>

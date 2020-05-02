@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
-
+import { ModalController, AlertController } from '@ionic/angular';
+import { IonInfiniteScroll } from '@ionic/angular';
 
 import { PaintService } from '../paint.service';
 import { Paint } from '../paint';
@@ -18,21 +18,24 @@ import { PaintTag } from '../paint-tag';
   styleUrls: ['./view-all-paints.page.scss'],
 })
 export class ViewAllPaintsPage implements OnInit {
-	
+    
 	paints: Paint[];
     errorMessage: string;
     paintsFilteredByCategory: Paint[] = [];
     paintsFilteredByTags: Paint[] = [];
+    endReached = false;
 
     constructor(private paintService: PaintService,
                 private router: Router,
-                private modalController: ModalController) 
+                private modalController: ModalController,
+                private alertController: AlertController) 
     {		
 	}
 
 
 	ngOnInit() {
-		this.refreshPaints();
+        this.refreshPaints();
+        this.presentAlert();
     }
     
     ionViewWillEnter() {
@@ -43,6 +46,25 @@ export class ViewAllPaintsPage implements OnInit {
 
     viewPaintDetails(event, paint) {
         this.router.navigate(["/viewPaintDetails/" + paint.paintId]);
+    }
+
+    loadData(event) {
+        setTimeout(() => {
+          console.log('Done');
+          this.endReached = true;
+          event.target.complete();
+        }, 500);
+    }
+
+    async presentAlert() {
+        let infoAlert = await this.alertController.create({ 
+            header : 'Info',
+            subHeader : 'Filtering options available by Categories and Tags. Use Reset button to reset the paints filtered.',
+            buttons : ['Dismiss']
+            
+        });
+
+        await infoAlert.present();
     }
 
     refreshPaints() {
