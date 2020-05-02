@@ -30,7 +30,19 @@ const routes: Routes = [
     loadChildren: () => import('./request-paint-service/request-paint-service.module').then( m => m.RequestPaintServicePageModule)
   },
   {
-    path: 'request-delivery-service',
+    path: 'viewAllDeliveries',
+    loadChildren: ()=> import('./view-all-deliveries/view-all-deliveries.module').then(m => m.ViewAllDeliveriesPageModule)
+  },
+  {
+    path: 'viewDeliveryDetails/:deliveryId',
+    loadChildren: ()=> import('./view-delivery-service-details/view-delivery-service-details.module').then(m => m.ViewDeliveryServiceDetailsPageModule)
+  },
+  {
+    path: 'updateDelivery/:deliveryId',
+    loadChildren: () => import('./update-delivery/update-delivery.module').then(m => m.UpdateDeliveryPageModule)
+  },
+  {
+    path: 'requestNewDelivery',
     loadChildren: () => import('./request-delivery-service/request-delivery-service.module').then( m => m.RequestDeliveryServicePageModule)
   },
   {
@@ -48,7 +60,11 @@ const routes: Routes = [
   {
     path: 'requestNewPaintService',
     loadChildren: () => import('./request-paint-service/request-paint-service.module').then( m => m.RequestPaintServicePageModule)
+  },  {
+    path: 'payment',
+    loadChildren: () => import('./payment/payment.module').then( m => m.PaymentPageModule)
   },
+
 ];
 
 @NgModule({

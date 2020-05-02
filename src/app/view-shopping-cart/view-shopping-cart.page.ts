@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { TransactionLineItem } from '../transaction-line-item';
+import { CartService } from '../cart.service';
+import { ActionSheetController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-shopping-cart',
@@ -7,9 +11,54 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewShoppingCartPage implements OnInit {
 
-  constructor() { }
+  cart : TransactionLineItem[];
+  totalItems : number;
+  subTotal : number;
 
-  ngOnInit() {
+  constructor(private cartService : CartService,
+    private actionSheetController : ActionSheetController,
+    private router : Router) 
+  {
+    this.totalItems = 0;
+    this.subTotal = 0;
+  }
+
+  ngOnInit() 
+  {
+  }
+
+  ionViewWillEnter()
+  {
+    this.cart = this.cartService.getCart();
+    this.countNumItem();
+    this.calculateTotal();
+  }
+
+
+  countNumItem()
+  {
+    for(var i=0;i<this.cart.length;i++)
+    {
+      this.totalItems = this.totalItems + this.cart[i].quantity;
+    }
+  }
+
+  calculateTotal()
+  {
+    this.subTotal = this.cart.reduce((a,b)=>a + b.price * b.quantity,0);
+  }
+
+  checkout()
+  {
+    console.log("******proceed to checkout");
+    if (this.cartService.getCart().length === 0) {
+      console.log("nothing to checkout");
+      this.router.navigate(['/viewCart']);
+    }
+    else{
+      this.router.navigate(["/payment"]);
+    }
+    
   }
 
 }

@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>Update Paint Service</ion-title>
   </ion-toolbar>
@@ -9,40 +9,10 @@
 
 <ion-content>
   <ion-card>
-    <ion-header >
-      <ion-button fill="clear" (click)="back()" style="color: black;">
-        <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
-        Back
-      </ion-button>
-    </ion-header>
     <ion-card-content>
-      <div *ngIf="retrievePaintServiceError == true" style="color: red;">
-        Paint Service ID {{paintServiceId}} does not exist!
-      </div>
-
-      <div *ngIf="resultSuccess == true" style="color: blue;">
-        {{message}}
-      </div>
-
-      <div *ngIf="resultError == true" style="color: red;">
-        {{message}}
-      </div>
 
       <form *ngIf="paintServiceToUpdate != null && retrievePaintServiceError ==false" #updatePaintServiceForm="ngForm"
         (ngSubmit)="update(updatePaintServiceForm)">
-
-        <div style="color: red;">
-          <div *ngIf="location.invalid && (location.dirty || location.touched || submitted)" class="errorText">
-            <div *ngIf="location.errors.required">
-              Location is required.
-            </div>
-          </div>
-          <div *ngIf="postalCode.invalid && (postalCode.dirty || postalCode.touched || submitted)" class="errorText">
-            <div *ngIf="postalCode.errors.required">
-              Postal code is required.
-            </div>
-          </div>
-        </div>
 
 
         <ion-list>

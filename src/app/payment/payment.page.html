@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-back-button slot="start"></ion-back-button>
+    <ion-title>payment</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-progress-bar type="indeterminate" *ngIf=""></ion-progress-bar>
+  <form #createNewPaymentForm="ngForm" (ngSubmit)="create(createNewPaymentForm)">
+    <ion-card>
+      <ion-card-header>
+        <b>Payment</b>
+      </ion-card-header>
+      <ion-card-content>
+        <div style="color: red;">
+          <div *ngIf="cardNum.invalid && (cardNum.dirty || cardNum.touched || submitted)" class="errorText">
+            <div *ngIf="cardNum.errors.maxlength">
+              Card number is at least 16 digits.
+            </div>
+          </div>
+        </div>
+        <ion-list>
+          <ion-item>
+            <ion-label position="stacked"><b>Card Number</b></ion-label>
+            <ion-input id="cardNum" type="text" name="cardNum" [(ngModel)]="cardNum" required="true"
+              placeholder="1234 1234 1234 1234" maxlength=19 minlength=19></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked"><b>Card Code (CVC)</b></ion-label>
+            <ion-input type="text" name="cardCode" [(ngModel)]="cardCode" required="true"
+              placeholder="CVC"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked"><b>Expiry Date</b></ion-label>
+            <ion-datetime displayFormat="YYYY/MM/DD" name="date" [(ngModel)]="convert"></ion-datetime>
+          </ion-item>
+        </ion-list>
+        <ion-button expand="full" color="" type="submit" ion-button block>
+          <ion-icon name="checkmark-outline"></ion-icon>
+          PROCEED TO PAYMENT
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </form>
+</ion-content>

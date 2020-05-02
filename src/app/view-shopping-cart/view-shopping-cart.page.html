@@ -6,4 +6,42 @@
 
 <ion-content>
 
+  <ion-card *ngFor="let tli of cart">
+    <ion-card-header>
+      <h2>${{tli.price}}</h2>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <p>Type: {{tli.itemName}}</p>
+        </ion-row>
+        <ion-row>
+          Qty: {{tli.quantity}}
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+
+    <ion-card-header>
+      <h4>
+        <ion-icon name="document-text-outline"></ion-icon>
+        <b>Cart Total</b>
+      </h4>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            Total ({{totalItems}} items)
+          </ion-col>
+          <ion-col>
+            <p style="text-align: right;">${{subTotal}}</p>
+          </ion-col>
+        </ion-row>
+        <ion-button expand="full" (click)="checkout()">CHECKOUT</ion-button>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

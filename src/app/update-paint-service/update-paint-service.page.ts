@@ -5,6 +5,8 @@ import { Location } from '@angular/common';
 import { PaintService } from '../paint-service';
 import { PaintServiceService } from '../paint-service.service';
 import { NgForm } from '@angular/forms';
+import { ToastController } from '@ionic/angular';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-update-paint-service',
@@ -26,6 +28,7 @@ export class UpdatePaintServicePage implements OnInit {
   constructor(private router : Router,
     private location : Location,
     private activatedRoute : ActivatedRoute,
+    private toastController : ToastController,
     private paintServiceService : PaintServiceService) 
   {
     this.retrievePaintServiceError = false;
@@ -45,6 +48,7 @@ export class UpdatePaintServicePage implements OnInit {
       },
       error => {
         this.retrievePaintServiceError = true;
+        this.showMessage('Paint Service ID {{paintServiceId}} does not exist!');
       }
     )
   }
@@ -61,13 +65,26 @@ export class UpdatePaintServicePage implements OnInit {
           this.resultSuccess = true;
           this.resultError = false;
           this.message = "Paint service updated successfully";
+          this.showMessage(this.message);
         },
         error => {
           this.resultError = true;
           this.resultSuccess = false;
           this.message = "An error has occurred while updating the paint service: " + error;
+          this.showMessage(this.message);
         }
       )
+    }
+    else
+    {
+      if(!this.paintServiceToUpdate.postalCode)
+      {
+        this.showMessage('Postal code is required.');
+      }
+      else if(!this.paintServiceToUpdate.locationAddress)
+      {
+        this.showMessage('Location is required.');
+      }
     }
   }
 
@@ -82,6 +99,16 @@ export class UpdatePaintServicePage implements OnInit {
   back()
 	{
 		this.location.back();
-	}
+  }
+  
+  async showMessage(message : string) {
+    const toast = await this.toastController.create({
+      color: 'dark',
+      duration: 2000,
+      message: message
+    });
+
+    await toast.present();
+  }
 
 }

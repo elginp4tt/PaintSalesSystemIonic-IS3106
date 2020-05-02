@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>
       View Delivery Service Details
@@ -11,12 +11,6 @@
 
 <ion-content>
   <ion-card>
-    <ion-header >
-      <ion-button fill="clear" (click)="back()" style="color: black;">
-        <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
-        Back
-      </ion-button>
-    </ion-header>
     <ion-card-content>
       
       <div *ngIf="retrieveDeliveryError == true" style="color: red;">

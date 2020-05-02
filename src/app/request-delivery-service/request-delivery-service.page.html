@@ -29,19 +29,16 @@
         </h3>
       </ion-slide>
       <ion-slide>
+        
         <h2>When to deliver?</h2>
         <ion-datetime displayFormat="MMM DD, YYYY HH:mm" name="selectedDate" [(ngModel)]="convert"></ion-datetime>
       </ion-slide>
     </ion-slides>
-
-
-    <div class="ion-text-center" *ngIf="!displaySubmitButton">
-      <p *ngIf="!displaySubmitButton">Swipe right to Continue</p>
-    </div>
     
-    <ion-button type="submit" ion-button block *ngIf="displaySubmitButton" color="primary">
+    <ion-button type="submit" expand="full" *ngIf="displaySubmitButton" color="primary">
       Confirm
     </ion-button>
+    <ion-button expand="full" (click)="viewCart()" *ngIf="resultSuccess">View Cart</ion-button>
   </form>
 </ion-content>
 
