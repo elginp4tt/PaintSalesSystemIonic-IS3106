@@ -32,7 +32,7 @@ export class ViewAllTransactionsPage implements OnInit {
     console.log("**********Routing to individual transaction page");
     console.log("**********Trans ID: " + transaction.transactionId);
 
-    this.router.navigate(["/viewTransactionDetails"]);
+    this.router.navigate(["/viewTransactionDetails/" + transaction.transactionId]);
   }
 
   refreshTransactions() {

@@ -16,6 +16,7 @@
         <div style="color: red;">
 
           <div *ngIf="email.invalid && (email.dirty || email.touched || submitted)" class="errorText">
+            <div *ngIf="check(email)"></div>
             <div *ngIf="email.errors.required">
               Email is required.
             </div>
@@ -89,7 +90,7 @@
               [(ngModel)]="newCustomer.homeAddress" required="true" #homeAddress="ngModel"></ion-input>
           </ion-item>
 
-          <ion-item >
+          <ion-item>
             <ion-button expand="block" color="danger" (click)="clear()">
               Clear
             </ion-button>

@@ -64,6 +64,11 @@ export class AppComponent implements OnInit {
           icon: 'arrow-forward'
         },
         {
+          title: 'View Shopping Cart',
+          url: '/viewCart',
+          icon: 'cart'
+        },
+        {
           title: 'View My Past Transactions',
           url: '/viewAllTransaction',
           icon: 'list'

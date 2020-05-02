@@ -16,29 +16,35 @@
         Transaction Id {{transactionId}} does not exist!
       </div>
 
-      <ion-list *ngIf='retrieveTransactionError == false && paintToView != null'>
-        <ion-item>
+      <ion-grid *ngIf='retrieveTransactionError == false && transactionToView != null'>
+        <!-- <ion-item>
           <ion-label><b>Transaction Line Item ID</b></ion-label>
           {{transaction.transactionLineItemId}}
-        </ion-item>
+        </ion-item> -->
 
-        <ion-item>
-          <ion-label><b>Item Name</b></ion-label>
-          {{transaction.itemName}}
-        </ion-item>
+        <ion-row>
+          <ion-col><b>S/N</b></ion-col>
+          <ion-col><b>Item Name</b></ion-col>
+          <ion-col><b>Quantity</b></ion-col>
+          <ion-col><b>Price($)</b></ion-col>
+          <ion-col><b>See More Details</b></ion-col>
+        </ion-row>
 
-        <ion-item>
-          <ion-label><b>Quantity</b></ion-label>
-          {{transaction.quantity}}
-        </ion-item>
+        <ion-row *ngFor="let lineItems of transactionToView; let i = index">
+          <!-- *ngIf="isPaintServiceTransaction(lineItems)" -->
+            <ion-col>{{i + 1}}</ion-col>
+            <ion-col>{{lineItems.itemName}}</ion-col>
+            <ion-col>{{lineItems.quantity}}</ion-col>
+            <ion-col>${{lineItems.price}}</ion-col>
+         </ion-row>
 
-        <ion-item>
-          <ion-label><b>Price</b></ion-label>
-          ${{transaction.price}}
-        </ion-item>
-      </ion-list>
-
-
+        <ion-row>
+          <ion-col>Total Price</ion-col>
+          <ion-col></ion-col>
+          <ion-col></ion-col>
+          <ion-col>${{totalPrice}}</ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-card-content>
   </ion-card>
 
