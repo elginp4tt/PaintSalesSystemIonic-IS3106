@@ -231,4 +231,18 @@ export class ViewAllPaintsPage implements OnInit {
     viewShoppingCart() : void {
         this.router.navigate(['/viewCart']);
     }
+    
+    reset() {
+        this.paintService.getPaints().subscribe(
+            response => {
+                this.paints = response.paints
+            },
+            error => {
+                this.errorMessage = error   
+            }
+        ); 
+
+        this.paintsFilteredByCategory = [];
+        this.paintsFilteredByTags =[];
+    }
 }

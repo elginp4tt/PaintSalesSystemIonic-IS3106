@@ -28,7 +28,7 @@
 			</div>
 
 			<ion-grid>
-				<ion-row>
+				<ion-row class="align-items: center"> 
 					<ion-col>Paint ID</ion-col>
 					<ion-col>Name</ion-col>
 					<ion-col>ColourCode</ion-col>
@@ -37,7 +37,7 @@
 					<ion-col>Action</ion-col>
 					<ion-col>Add To Cart</ion-col>
 				</ion-row>
-				<ion-row *ngFor="let paint of paints">
+				<ion-row *ngFor="let paint of paints" class="align-items: center">
 					<ion-col>{{paint.paintId}}</ion-col>
 					<ion-col>{{paint.name}}</ion-col>
 					<ion-col>{{paint.colourCode}}</ion-col>
@@ -57,6 +57,7 @@
 		<ion-card-content>
 			<ion-button (click)="presentFilterPaintsByCategoriesModal()">Filter by Category</ion-button>
 			<ion-button (click)="presentFilterPaintsByTagsModal()">Filter by Tag</ion-button>
+			<ion-button color = "secondary" (click) = "reset()">Reset</ion-button>
 		</ion-card-content>
 	</ion-card>
 </ion-content>
