@@ -18,6 +18,7 @@ getRootPath(): string {
 	if(this.platform.is('hybrid'))
 	{
 		return "http://192.168.1.197:8080/PaintSalesSystemRws/Resources/"; //Laptop IP address
+		//return "http://192.168.0.103:8080/PaintSalesSystemRws/Resources/";//bingsen's IP address
 	}
 	else
 	{

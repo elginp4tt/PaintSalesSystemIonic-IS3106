@@ -1,9 +1,45 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>RequestPaintService</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Request A Paint Service</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
+  <form #createPaintServiceForm="ngForm" (ngSubmit)="create(createPaintServiceForm)">
+
+    <ion-slides [options]="slideOpts" #slides (ionSlideDidChange)="checkSlideIndex(slides)">
+      <ion-slide>
+        <h2>Tell us about your location</h2>
+        <h3>
+          <ion-input type="text" id="location" name="location" [(ngModel)]="newPaintService.locationAddress" required="true"
+            #location="ngModel" placeholder="Enter location"></ion-input>
+        </h3>
+      </ion-slide>
+
+      <ion-slide>
+        <h2>Postal code of the address?</h2>
+        <h3>
+          <ion-input type="text" id="postalCode" name="postalCode" [(ngModel)]="newPaintService.postalCode" required="true"
+            #postalCode="ngModel" placeholder="Enter postal code" maxlength="6"></ion-input>
+        </h3>
+      </ion-slide>
+      <ion-slide>
+        <h2>When do you need this service?</h2>
+        <ion-datetime displayFormat="MMM DD, YYYY HH:mm" name="selectedDate" [(ngModel)]="convert"></ion-datetime>
+      </ion-slide>
+    </ion-slides>
+
+    <div class="ion-text-center" *ngIf="!displaySubmitButton">
+      <p *ngIf="!displaySubmitButton">Swipe right to Continue</p>
+    </div>
+    
+    <ion-button type="submit" ion-button block *ngIf="displaySubmitButton" color="primary">
+      Confirm
+    </ion-button>
+  </form>
 </ion-content>
+

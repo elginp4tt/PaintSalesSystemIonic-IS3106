@@ -1,0 +1,39 @@
+ion-slides {
+    height: 100%;
+  }
+
+  .swiper-slide {
+    display: block;
+  }
+
+  .swiper-slide h2 {
+    margin-top: 10rem;
+    margin-right: 1rem;
+    margin-left: 1rem;
+  }
+
+  .text{
+    text-align: center;
+    color: blue;
+  }
+
+  b {
+    font-weight: 500;
+  }
+
+  p {
+    padding: 0 40px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--ion-color-step-600, #60646b);
+  }
+
+  p b {
+    color: var(--ion-text-color, #000000);
+  }
+
+  ion-button{
+    text-align: center;
+    margin-left: 7.5rem;
+    margin-right: 7.5rem;
+  }

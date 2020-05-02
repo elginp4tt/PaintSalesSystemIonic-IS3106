@@ -1,9 +1,56 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>ViewDeliveryServiceDetails</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      View Delivery Service Details
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-card>
+    <ion-header >
+      <ion-button fill="clear" (click)="back()" style="color: black;">
+        <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
+        Back
+      </ion-button>
+    </ion-header>
+    <ion-card-content>
+      
+      <div *ngIf="retrieveDeliveryError == true" style="color: red;">
+        Delivery ID {{deliveryId}} does not exist!
+      </div>
 
+      <ion-list *ngIf = "deliveryToView != null && retrieveDeliveryError == false">
+
+        <ion-item>
+          <ion-label><b>Delivery ID</b></ion-label>
+          {{deliveryToView.deliveryId}}
+        </ion-item>
+
+        <ion-item>
+          <ion-label><b>Location Address</b></ion-label>
+          {{deliveryToView.locationAddress}}
+        </ion-item>
+
+        <ion-item>
+          <ion-label><b>Postal Code</b></ion-label>
+          {{deliveryToView.postalCode}}
+        </ion-item>
+
+        <ion-item>
+          <ion-label><b>Deliver At</b></ion-label>
+          {{deliveryToView.deliveryStartTime | date:'medium'}}
+        </ion-item>
+
+      </ion-list>
+
+      <ion-button expand="block" (click)="updateDelivery()">
+        <ion-icon name="create"></ion-icon>
+        Update
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

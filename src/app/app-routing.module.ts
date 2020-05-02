@@ -23,49 +23,38 @@ const routes: Routes = [
     loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
   },
   {
-    path: 'view-shopping-cart',
-    loadChildren: () => import('./view-shopping-cart/view-shopping-cart.module').then( m => m.ViewShoppingCartPageModule)
+    path: 'viewAllDeliveries',
+    loadChildren: () => import('./view-all-deliveries/view-all-deliveries.module').then( m => m.ViewAllDeliveriesPageModule)
   },
   {
-    path: 'view-all-transactions',
-    loadChildren: () => import('./view-all-transactions/view-all-transactions.module').then( m => m.ViewAllTransactionsPageModule)
+    path: 'viewDeliveryDetails/:deliveryId',
+    loadChildren: () => import('./view-delivery-service-details/view-delivery-service-details.module').then(m => m.ViewDeliveryServiceDetailsPageModule), canActivate: [AuthGuard]
   },
   {
-    path: 'view-transaction-details',
-    loadChildren: () => import('./view-transaction-details/view-transaction-details.module').then( m => m.ViewTransactionDetailsPageModule)
+    path: 'updateDelivery/:deliveryId',
+    loadChildren: './update-delivery/update-delivery.module#UpdateDeliveryPageModule', canActivate: [AuthGuard]
   },
   {
-    path: 'request-refund',
-    loadChildren: () => import('./request-refund/request-refund.module').then( m => m.RequestRefundPageModule)
-  },
-  {
-    path: 'view-paint-details',
-    loadChildren: () => import('./view-paint-details/view-paint-details.module').then( m => m.ViewPaintDetailsPageModule)
-  },
-  {
-    path: 'request-paint-service',
-    loadChildren: () => import('./request-paint-service/request-paint-service.module').then( m => m.RequestPaintServicePageModule)
-  },
-  {
-    path: 'request-delivery-service',
+    path: 'requestNewDelivery',
     loadChildren: () => import('./request-delivery-service/request-delivery-service.module').then( m => m.RequestDeliveryServicePageModule)
   },
   {
-    path: 'view-paint-service-details',
+    path: 'viewAllPaintServices',
+    loadChildren: () => import('./view-all-paint-services/view-all-paint-services.module').then( m => m.ViewAllPaintServicesPageModule)
+  },
+  {
+    path: 'viewPaintServiceDetails/:paintServiceId',
     loadChildren: () => import('./view-paint-service-details/view-paint-service-details.module').then( m => m.ViewPaintServiceDetailsPageModule)
   },
   {
-    path: 'view-delivery-service-details',
-    loadChildren: () => import('./view-delivery-service-details/view-delivery-service-details.module').then( m => m.ViewDeliveryServiceDetailsPageModule)
+    path: 'updatePaintService/:paintServiceId',
+    loadChildren: () => import('./update-paint-service/update-paint-service.module').then(m => m.UpdatePaintServicePageModule),canActivate: [AuthGuard]
   },
   {
-    path: 'mix-paint',
-    loadChildren: () => import('./mix-paint/mix-paint.module').then( m => m.MixPaintPageModule)
+    path: 'requestNewPaintService',
+    loadChildren: () => import('./request-paint-service/request-paint-service.module').then( m => m.RequestPaintServicePageModule)
   },
-  {
-    path: 'overlay-paint',
-    loadChildren: () => import('./overlay-paint/overlay-paint.module').then( m => m.OverlayPaintPageModule)
-  },
+
 ];
 
 @NgModule({

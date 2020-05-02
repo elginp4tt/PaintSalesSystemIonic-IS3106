@@ -18,13 +18,23 @@ export class AppComponent implements OnInit {
       icon: 'home'
     },
     {
-      title: 'View All Paints',
-      url: '/viewAllPaints',
+      title: 'View My Deliveries',
+      url: '/viewAllDeliveries',
       icon: 'arrow-forward'
     },
-	{
-      title: 'Create New Paint',
-      url: '/createNewPaint',
+    {
+      title : 'Request Delivery',
+      url : '/requestNewDelivery',
+      icon: 'arrow-forward'
+    },
+    {
+      title: 'View My Paint Services',
+      url: '/viewAllPaintServices',
+      icon: 'arrow-forward'
+    },
+    {
+      title : 'Request Paint Service',
+      url : '/requestNewPaintService',
       icon: 'arrow-forward'
     }
   ];

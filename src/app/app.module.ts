@@ -20,8 +20,8 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-	FormsModule,
-	HttpClientModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [
     StatusBar,
@@ -30,4 +30,4 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
