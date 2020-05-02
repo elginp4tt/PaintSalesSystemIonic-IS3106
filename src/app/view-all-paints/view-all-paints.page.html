@@ -9,6 +9,7 @@
     </ion-toolbar>
 </ion-header>
 
+
 <ion-content>
     <ion-list>
         <ion-list-header color="secondary">Paints Available</ion-list-header>
@@ -26,6 +27,7 @@
             <ion-button (click)="viewPaintDetails($event, paint)" slot="end" color="tertiary">
                 <ion-icon name="search-outline"></ion-icon>           
             </ion-button>
+            <ion-button (click)="presentEnterQty(paint)">Add To Cart</ion-button>
         </ion-item>
     </ion-list>
 
@@ -55,20 +57,25 @@
         </ion-fab-button>
     </ion-fab>
 
-    
+    <ion-fab vertical="top" horizontal="end" slot="fixed" >
+		<ion-fab-button (click)="viewShoppingCart()">
+		  <ion-icon name="cart"></ion-icon>
+		</ion-fab-button>
+    </ion-fab>
 
     <!-- <div *ngIf="errorMessage">
 				{{errorMessage}}
 			</div>
-			
+
 			<ion-grid>
 				<ion-row class="align-items: center"> 
 					<ion-col>Paint ID</ion-col>
 					<ion-col>Name</ion-col>
 					<ion-col>ColourCode</ion-col>
-                    <ion-col>Price</ion-col>
-                    <ion-col>Paint Rating</ion-col>
-                    <ion-col>Action</ion-col>
+					<ion-col>Price</ion-col>
+					<ion-col>Paint Rating</ion-col>
+					<ion-col>Action</ion-col>
+					<ion-col>Add To Cart</ion-col>
 				</ion-row>
 				<ion-row *ngFor="let paint of paints" class="align-items: center">
 					<ion-col>{{paint.paintId}}</ion-col>

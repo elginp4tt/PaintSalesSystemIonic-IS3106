@@ -30,6 +30,9 @@ export class ViewAllTransactionsPage implements OnInit {
 
   viewTransactionDetails (event, transaction){
     console.log("**********Routing to individual transaction page");
+    console.log("**********Trans ID: " + transaction.transactionId);
+
+    this.router.navigate(["/viewTransactionDetails/" + transaction.transactionId]);
   }
 
   refreshTransactions() {
@@ -41,6 +44,10 @@ export class ViewAllTransactionsPage implements OnInit {
         catchError(this.handleError)
       }
     )
+  }
+
+  back (){
+    this.router.navigate(['/home']);
   }
 
   private handleError(error: HttpErrorResponse)

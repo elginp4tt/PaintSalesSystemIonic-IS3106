@@ -38,6 +38,7 @@ export class TransactionService {
 	
 	getTransactionByTransactionId(transactionId: number): Observable<any>
 	{
+		console.log("**********getTransactionByTransactionId method trans id: " + transactionId)
 		return this.httpClient.get<any>(this.baseUrl + "/retrieveTransaction/" + transactionId).pipe
 		(
 			catchError(this.handleError)
