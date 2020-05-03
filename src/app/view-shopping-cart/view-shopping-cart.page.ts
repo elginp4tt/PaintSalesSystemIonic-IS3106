@@ -3,6 +3,7 @@ import { TransactionLineItem } from '../transaction-line-item';
 import { CartService } from '../cart.service';
 import { ActionSheetController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { SessionService } from '../session.service';
 
 @Component({
   selector: 'app-view-shopping-cart',
@@ -58,7 +59,28 @@ export class ViewShoppingCartPage implements OnInit {
     else{
       this.router.navigate(["/payment"]);
     }
-    
   }
 
+    removeItem(transactionLineItem){
+      this.cartService.removeItem(transactionLineItem);
+    }
+  
+    isCartEmpty(){
+      return this.cart.length == 0;
+    }
+  
+    continueShopping (){
+      this.router.navigate(['/viewAllPaints']);
+    }
+  
+    clearCart(){
+      this.cartService.clearCart();
+    }
+  
+    // checkout(){
+    //   this.cartService.checkout();
+    // }
+    
 }
+
+

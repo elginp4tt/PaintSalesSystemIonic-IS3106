@@ -25,7 +25,7 @@ import { FilterPaintsByTagsModalPageModule } from './filter-paints-by-tags-modal
 	  FormsModule,
     HttpClientModule,
     FilterPaintsByCategoriesModalPageModule,
-    FilterPaintsByTagsModalPageModule
+    FilterPaintsByTagsModalPageModule,
   ],
   providers: [
     StatusBar,

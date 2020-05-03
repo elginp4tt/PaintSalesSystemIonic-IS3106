@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController, AlertController } from '@ionic/angular';
-
+import { IonInfiniteScroll } from '@ionic/angular';
 
 import { PaintService } from '../paint.service';
 import { Paint } from '../paint';
@@ -14,6 +14,7 @@ import { CartService } from '../cart.service';
 import { TransactionLineItem } from '../transaction-line-item';
 import { PaintTransaction } from '../paint-transaction';
 import { SessionService } from '../session.service';
+import { createAttribute } from '@angular/compiler/src/core';
 
 
 @Component({
@@ -28,14 +29,16 @@ export class ViewAllPaintsPage implements OnInit {
     paintsFilteredByCategory: Paint[] = [];
     paintsFilteredByTags: Paint[] = [];
     paintQty: number;
-    transactionLineItem : TransactionLineItem;
+    transactionLineItem: TransactionLineItem;
+    endReached = false;
+    cart: TransactionLineItem[];
 
     constructor(private paintService: PaintService,
         private router: Router,
         private modalController: ModalController,
         private cartService: CartService,
         private alertController: AlertController,
-        private sessionService : SessionService
+        private sessionService: SessionService
     ) {
     }
 
@@ -43,6 +46,7 @@ export class ViewAllPaintsPage implements OnInit {
     ngOnInit() {
         this.paintQty = 0;
         this.refreshPaints();
+        this.presentAlert();
     }
 
     ionViewWillEnter() {
@@ -53,6 +57,25 @@ export class ViewAllPaintsPage implements OnInit {
 
     viewPaintDetails(event, paint) {
         this.router.navigate(["/viewPaintDetails/" + paint.paintId]);
+    }
+
+    loadData(event) {
+        setTimeout(() => {
+            console.log('Done');
+            this.endReached = true;
+            event.target.complete();
+        }, 500);
+    }
+
+    async presentAlert() {
+        let infoAlert = await this.alertController.create({
+            header: 'Info',
+            subHeader: 'Filtering options available by Categories and Tags. Use Reset button to reset the paints filtered.',
+            buttons: ['Dismiss']
+
+        });
+
+        await infoAlert.present();
     }
 
     refreshPaints() {
@@ -73,7 +96,6 @@ export class ViewAllPaintsPage implements OnInit {
                 this.paints = this.paintsFilteredByTags;
             }
         }
-
         console.log("Paints filtered by category");
         console.log(this.paintsFilteredByCategory);
 
@@ -144,20 +166,21 @@ export class ViewAllPaintsPage implements OnInit {
 
     addToCart(paint) {
         this.transactionLineItem = new TransactionLineItem();
-        console.log("**********Adding to cart");
-        let totalPrice : number = this.paintQty * paint.price;
-        console.log("totalprice: " + totalPrice);
+        let totalPrice: number = this.paintQty * paint.price;
+
         this.transactionLineItem = new PaintTransaction(null, paint.name, this.paintQty, totalPrice, this.paintQty, paint);
-        this.cartService.addItem(this.transactionLineItem);  
+        this.cartService.addItem(this.transactionLineItem);
     }
 
     presentEnterQty(paint) {
-        if (this.sessionService.getIsLogin() == false){
+        this.paintQty = 0;
+        if (this.sessionService.getIsLogin() == false) {
             this.loginToast();
             return false;
         }
         const alert = document.createElement('ion-alert');
         alert.header = "May I Know How Much You need?";
+        alert.subHeader = "Stocks left: " + paint.quantityOnHand;
         alert.inputs = [
             {
                 name: 'quantity',
@@ -180,6 +203,13 @@ export class ViewAllPaintsPage implements OnInit {
                 text: 'Ok',
                 handler: (data) => {
                     if (data.quantity >= 1 && data.quantity <= paint.quantityOnHand) {
+                        this.cart = this.cartService.getCart();
+                        for (let i of this.cart) {
+                            if (i instanceof PaintTransaction && i.paint.name === paint.name) {
+                                this.failureToAddToast();
+                                return false;
+                            }
+                        }
                         this.paintQty = data.quantity;
                         this.addToCart(paint);
                         this.successPaintLitreToast();
@@ -195,54 +225,68 @@ export class ViewAllPaintsPage implements OnInit {
         return alert.present();
     }
 
-    async failurePaintLitreToast (){
+    async failurePaintLitreToast() {
         const toast = document.createElement('ion-toast');
-		toast.message = "You have either ordered too less or more than our stocks!";
-		toast.position = "top";
-		toast.duration = 2000;
-		toast.style.textAlign = "center";
-		
-		document.body.appendChild(toast);
-		return toast.present();
+        toast.message = "You have either ordered too less or more than our stocks!";
+        toast.position = "top";
+        toast.duration = 2000;
+        toast.style.textAlign = "center";
+
+        document.body.appendChild(toast);
+        return toast.present();
     }
 
-    async successPaintLitreToast (){
+    async successPaintLitreToast() {
         const toast = document.createElement('ion-toast');
-		toast.message = "Adding to The Cart!";
-		toast.position = "top";
-		toast.duration = 2000;
-		toast.style.textAlign = "center";
-		
-		document.body.appendChild(toast);
-		return toast.present();
+        toast.message = "Adding to The Cart!";
+        toast.position = "top";
+        toast.duration = 1000;
+        toast.style.textAlign = "center";
+
+        document.body.appendChild(toast);
+        return toast.present();
     }
 
-    async loginToast (){
+    async loginToast() {
         const toast = document.createElement('ion-toast');
-		toast.message = "Please Login Before You Start To Add Items in Cart!";
-		toast.position = "top";
-		toast.duration = 2000;
-		toast.style.textAlign = "center";
-		
-		document.body.appendChild(toast);
-		return toast.present();
+        toast.message = "Please Login Before You Start To Add/View Items in Cart!";
+        toast.position = "top";
+        toast.duration = 2000;
+        toast.style.textAlign = "center";
+
+        document.body.appendChild(toast);
+        return toast.present();
     }
 
-    viewShoppingCart() : void {
+    async failureToAddToast() {
+        const toast = document.createElement('ion-toast');
+        toast.message = "You currently have that item in the cart, remove it in the cart and re-add the item into the cart!";
+        toast.position = "top";
+        toast.duration = 3000;
+        toast.style.textAlign = "center";
+
+        document.body.appendChild(toast);
+        return toast.present();
+    }
+
+    viewShoppingCart() {
+        if (this.sessionService.getIsLogin() == false) {
+            this.loginToast();
+            return false;
+        }
         this.router.navigate(['/viewCart']);
     }
-    
+
     reset() {
         this.paintService.getPaints().subscribe(
             response => {
                 this.paints = response.paints
             },
             error => {
-                this.errorMessage = error   
+                this.errorMessage = error
             }
         ); 
-
         this.paintsFilteredByCategory = [];
-        this.paintsFilteredByTags =[];
+        this.paintsFilteredByTags = [];
     }
 }

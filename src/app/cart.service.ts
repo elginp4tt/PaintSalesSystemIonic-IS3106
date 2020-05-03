@@ -76,9 +76,11 @@ export class CartService {
 
 		console.log("**********I am at cart");
 		for (var i = 0; i < this.cart.length; i++) {
-			console.log("*** Cart item: " + this.cart[i].itemName);
-			console.log("*** Cart item: " + this.cart[i].quantity);
-			console.log("*** Cart item: " + this.cart[i].price);
+			// console.log("*** Cart item: " + this.cart[i].itemName);
+			// console.log("*** Cart item: " + this.cart[i].quantity);
+			// console.log("*** Cart item: " + this.cart[i].price);
+			// console.log("*** Cart qty: " + this.cart[i].quantity);
+			// console.log("*** Cart price: " + this.cart[i].price);
 			console.log("*** Cart item: ", this.cart[i] instanceof PaintTransaction);
 		}
 	}
@@ -122,6 +124,7 @@ export class CartService {
 	}
 
 	checkout() {
+		console.log("**********cart service.ts : checkout");
 		this.transactionService.createNewTransaction(this.sessionService.getCurrentCustomer(), this.getCart());
 
 		this.clearCart();

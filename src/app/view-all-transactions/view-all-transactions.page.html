@@ -1,8 +1,8 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-button (click)="back()">
-          <ion-icon slot="start" name="arrow-back"></ion-icon>
+        <ion-icon slot="start" name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-title>My Past Transactions</ion-title>
@@ -11,21 +11,25 @@
 
 <ion-content>
   <ion-card>
-
+    <ion-card>
+      <ion-card-header color="secondary">
+        My Past Transactions
+      </ion-card-header>
+    </ion-card>
     <ion-card-content>
       <ion-grid>
         <ion-row>
-          <ion-col>Transaction Id</ion-col>
-          <ion-col>Action</ion-col>
+          <ion-col><b>Transaction Id</b></ion-col>
+          <ion-col><b>Action</b></ion-col>
         </ion-row>
 
         <ion-row *ngFor="let transaction of transactions">
           <ion-col>{{transaction.transactionId}}</ion-col>
           <ion-col>
-            <ion-button (click) = 'viewTransactionDetails($event, transaction)'>
+            <ion-button (click)='viewTransactionDetails($event, transaction)'>
               <ion-icon slot="start" name="arrow-forward"></ion-icon>
               View More Details
-          </ion-button>
+            </ion-button>
           </ion-col>
         </ion-row>
       </ion-grid>
