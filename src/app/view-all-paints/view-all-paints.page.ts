@@ -96,7 +96,6 @@ export class ViewAllPaintsPage implements OnInit {
                 this.paints = this.paintsFilteredByTags;
             }
         }
-
         console.log("Paints filtered by category");
         console.log(this.paintsFilteredByCategory);
 
@@ -286,8 +285,7 @@ export class ViewAllPaintsPage implements OnInit {
             error => {
                 this.errorMessage = error
             }
-        );
-
+        ); 
         this.paintsFilteredByCategory = [];
         this.paintsFilteredByTags = [];
     }

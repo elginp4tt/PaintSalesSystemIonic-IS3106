@@ -14,15 +14,14 @@
 	<ion-list>
 		<ion-list-header color="secondary">Paints Available</ion-list-header>
 
-		<ion-item *ngFor="let paint of paints">
-			<ion-avatar slot="start">
-				<!-- <img src=""> -->
-			</ion-avatar>
-			<ion-label>
-				<h2>{{paint.name}}</h2>
-				<h3>Colour code: {{paint.colourCode}}</h3>
-				<p>ID: {{paint.paintId}}</p>
-			</ion-label>
+        <ion-item *ngFor="let paint of paints">
+            <ion-avatar slot="start">
+                <!-- <img src=""> -->
+            </ion-avatar>
+            <ion-label>
+                <h2>{{paint.name}}</h2>
+                <p>Colour code: {{paint.colourCode}}</p>
+            </ion-label>
 
 			<ion-button (click)="viewPaintDetails($event, paint)" slot="end" color="tertiary">
 				<ion-icon name="search-outline"></ion-icon>
