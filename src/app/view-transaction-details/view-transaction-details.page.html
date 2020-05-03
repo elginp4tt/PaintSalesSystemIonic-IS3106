@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-button (click)="back()">
         <ion-icon slot="start" name="arrow-back"></ion-icon>
@@ -36,6 +36,7 @@
             <ion-col>{{lineItems.itemName}}</ion-col>
             <ion-col>{{lineItems.quantity}}</ion-col>
             <ion-col>${{lineItems.price}}</ion-col>
+            <ion-col></ion-col>
          </ion-row>
 
         <ion-row>
@@ -43,6 +44,7 @@
           <ion-col></ion-col>
           <ion-col></ion-col>
           <ion-col>${{totalPrice}}</ion-col>
+          <ion-col></ion-col>
         </ion-row>
       </ion-grid>
     </ion-card-content>

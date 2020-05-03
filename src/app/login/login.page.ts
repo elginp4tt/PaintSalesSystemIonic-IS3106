@@ -65,6 +65,7 @@ export class LoginPage implements OnInit {
 						this.sessionService.setCurrentCustomer(customer);					
 						this.loginError = false;
 						this.appComponent.updateMainMenu();
+						this.router.navigate(['/home']);
 					}
 					else
 					{

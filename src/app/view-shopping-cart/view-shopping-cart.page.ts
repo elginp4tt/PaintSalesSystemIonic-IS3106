@@ -33,4 +33,12 @@ export class ViewShoppingCartPage implements OnInit {
     this.router.navigate(['/viewAllPaints']);
   }
 
+  clearCart(){
+    this.cartService.clearCart();
+  }
+
+  checkout(){
+    this.cartService.checkout();
+  }
+
 }

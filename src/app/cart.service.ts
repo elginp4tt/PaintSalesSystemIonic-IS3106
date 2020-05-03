@@ -13,45 +13,43 @@ import { PaintTransaction } from './paint-transaction';
 import { DeliveryServiceTransaction } from './delivery-service-transaction';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class CartService {
-	
+
 	baseUrl: string;
-	
+
 	private cart: TransactionLineItem[];
 	private itemCount = new BehaviorSubject(0);
 
 	constructor(private httpClient: HttpClient,
-				private utilityService: UtilityService,
-				private transactionService: TransactionService,
-				private sessionService: SessionService) {
-				  
+		private utilityService: UtilityService,
+		private transactionService: TransactionService,
+		private sessionService: SessionService) {
+
 		this.baseUrl = this.utilityService.getRootPath() + 'Cart';
 		this.cart = [];
 	}
-  
+
 	getCart() {
 		return this.cart;
 	}
-  
+
 	getItemCount() {
 		return this.itemCount;
 	}
-  
+
 	addItem(transactionLineItem?: TransactionLineItem){
 		let added = false;
-		console.log("***HERE");
 		for (let i of this.cart) {
-			console.log("***HERE2");
 			if (i.itemName === transactionLineItem.itemName) {
-				console.log("***HERE3");
-				i.quantity += +transactionLineItem.quantity;
+				i.quantity += transactionLineItem.quantity;
+				i.price += transactionLineItem.price;
 				added = true;
 				break;
 			}
 		}
-		  
+
 		if (!added) {
 			this.cart.push(transactionLineItem);
 		}
@@ -59,20 +57,20 @@ export class CartService {
 		this.getItemCount();
 
 		console.log("**********I am at cart");
-		for (var i =0; i < this.cart.length; i++){
+		for (var i = 0; i < this.cart.length; i++) {
 			console.log("*** Cart item: " + this.cart[i].itemName);
-			console.log("*** Cart item: " + this.cart[i].quantity);
-			console.log("*** Cart item: " + this.cart[i].price);		
-			console.log("*** Cart item: " , this.cart[i] instanceof PaintTransaction);		
+			console.log("*** Cart qty: " + this.cart[i].quantity);
+			console.log("*** Cart price: " + this.cart[i].price);
+			console.log("*** Cart item: ", this.cart[i] instanceof PaintTransaction);
 		}
 	}
-	  
+
 	decreaseItem(transactionLineItem?: TransactionLineItem) {
 		for (const [index, i] of this.cart.entries()) {
 			if (i.itemName === transactionLineItem.itemName) {
 				i.quantity -= 1;
-			if (i.quantity === 0) {
-				this.cart.splice(index, 1);
+				if (i.quantity === 0) {
+					this.cart.splice(index, 1);
 				}
 			}
 		}
@@ -91,28 +89,26 @@ export class CartService {
 	clearCart() {
 		this.cart.length = 0;
 	}
-	
+
 	checkout() {
+		console.log("**********cart service.ts : checkout");
 		this.transactionService.createNewTransaction(this.sessionService.getCurrentCustomer(), this.getCart());
-		
+
 		this.clearCart();
 	}
-	
-	private handleError(error: HttpErrorResponse)
-	{
+
+	private handleError(error: HttpErrorResponse) {
 		let errorMessage: string = "";
-		
-		if (error.error instanceof ErrorEvent) 
-		{		
+
+		if (error.error instanceof ErrorEvent) {
 			errorMessage = "An unknown error has occurred: " + error.error.message;
-		} 
-		else 
-		{		
+		}
+		else {
 			errorMessage = "A HTTP error has occurred: " + `HTTP ${error.status}: ${error.error.message}`;
 		}
-		
+
 		console.error(errorMessage);
-		
-		return throwError(errorMessage);		
+
+		return throwError(errorMessage);
 	}
 }

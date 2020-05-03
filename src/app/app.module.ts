@@ -22,10 +22,10 @@ import { FilterPaintsByTagsModalPageModule } from './filter-paints-by-tags-modal
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-	FormsModule,
+    FormsModule,
     HttpClientModule,
     FilterPaintsByCategoriesModalPageModule,
-    FilterPaintsByTagsModalPageModule
+    FilterPaintsByTagsModalPageModule,
   ],
   providers: [
     StatusBar,
@@ -34,4 +34,4 @@ import { FilterPaintsByTagsModalPageModule } from './filter-paints-by-tags-modal
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
