@@ -13,23 +13,16 @@
         <b>Payment</b>
       </ion-card-header>
       <ion-card-content>
-        <div style="color: red;">
-          <div *ngIf="cardNum.invalid && (cardNum.dirty || cardNum.touched || submitted)" class="errorText">
-            <div *ngIf="cardNum.errors.maxlength">
-              Card number is at least 16 digits.
-            </div>
-          </div>
-        </div>
         <ion-list>
           <ion-item>
             <ion-label position="stacked"><b>Card Number</b></ion-label>
             <ion-input id="cardNum" type="text" name="cardNum" [(ngModel)]="cardNum" required="true"
-              placeholder="1234 1234 1234 1234" maxlength=19 minlength=19></ion-input>
+              placeholder="1234 1234 1234 1234" maxlength=16 minlength=16></ion-input>
           </ion-item>
           <ion-item>
             <ion-label position="stacked"><b>Card Code (CVC)</b></ion-label>
             <ion-input type="text" name="cardCode" [(ngModel)]="cardCode" required="true"
-              placeholder="CVC"></ion-input>
+              placeholder="CVC" maxlength=3 minlength=3></ion-input>
           </ion-item>
           <ion-item>
             <ion-label position="stacked"><b>Expiry Date</b></ion-label>

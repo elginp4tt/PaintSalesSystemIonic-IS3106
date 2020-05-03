@@ -49,6 +49,14 @@ export class PaymentPage implements OnInit {
       else if (!this.cardCode) {
         this.showMessage("Card code is required.");
       }
+      else if(this.cardCode.length != 3)
+      {
+        this.showMessage("Card code must be three digits.");
+      }
+      else if(this.cardNum.length != 16)
+      {
+        this.showMessage("Card number must be 16 digits.");
+      }
     }
   }
 
