@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CartService } from '../cart.service';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { ToastController } from '@ionic/angular';
+import { ToastController, AlertController } from '@ionic/angular';
+import { TransactionService } from '../transaction.service';
 
 @Component({
   selector: 'app-payment',
@@ -18,7 +19,9 @@ export class PaymentPage implements OnInit {
 
   constructor(private cartService: CartService,
     private router: Router,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private alertController: AlertController,
+    private transactionService : TransactionService
   ) {
     this.expiryDate = new Date();
     this.showProgressBar = false;
@@ -37,6 +40,19 @@ export class PaymentPage implements OnInit {
       if (this.expiryDate > new Date()) {
         this.showProgressBar = true;
         console.log("to persist the shopping cart");
+        this.transactionService.createNewTransaction().subscribe(
+          response => {
+            createNewPaymentForm.reset();
+            this.handleButtonClick();
+            this.cartService.clearCart();
+            console.log("success");
+            this.router.navigate(['/viewCart']);
+          },
+          error => {
+            this.showMessage(error);
+            console.log("failure");
+          }
+        );
       }
       else {
         this.showMessage("Your card has expired.");
@@ -58,6 +74,17 @@ export class PaymentPage implements OnInit {
         this.showMessage("Card number must be 16 digits.");
       }
     }
+  }
+
+
+  async handleButtonClick() {
+    const alert = await this.alertController.create({
+      header: 'Success',
+      message: 'Your purchase is successful',
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 
   get convert(): string {

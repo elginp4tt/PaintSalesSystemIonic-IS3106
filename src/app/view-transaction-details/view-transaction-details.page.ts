@@ -14,7 +14,8 @@ import { DeliveryServiceTransaction } from '../delivery-service-transaction';
 export class ViewTransactionDetailsPage implements OnInit {
 
   transactionId : number;
-  transactionToView : TransactionLineItem [];
+  transactionToView : Transaction;
+  transactionLineItems : TransactionLineItem [];
   retrieveTransactionError : boolean;
   error : boolean;
   errorMessage : string;
@@ -41,7 +42,8 @@ export class ViewTransactionDetailsPage implements OnInit {
   refreshTransaction(){
     this.transactionService.getTransactionByTransactionId(this.transactionId).subscribe(
       response => {
-        this.transactionToView = response.transactionLineItems;
+        this.transactionToView = response.transaction;
+        this.transactionLineItems = this.transactionToView.transactionLineItems;
         this.retrieveTransactionError = false;
         this.resultSuccess = true;
         this.calculateTotalPrice();
@@ -61,8 +63,8 @@ export class ViewTransactionDetailsPage implements OnInit {
 
   calculateTotalPrice (){
     this.totalPrice = 0;
-    for (var i =0; i<this.transactionToView.length; i++){
-      this.totalPrice += this.transactionToView[i].price;
+    for (var i =0; i<this.transactionLineItems.length; i++){
+      this.totalPrice += this.transactionLineItems[i].price;
     }
   }
 

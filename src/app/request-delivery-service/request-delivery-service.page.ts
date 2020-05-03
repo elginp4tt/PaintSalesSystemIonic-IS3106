@@ -9,6 +9,7 @@ import { Delivery } from '../delivery';
 import { DeliveryService } from '../delivery.service';
 import { CartService } from '../cart.service';
 import { DeliveryServiceTransaction } from '../delivery-service-transaction';
+import { TransactionLineItem } from '../transaction-line-item';
 
 
 
@@ -36,9 +37,9 @@ export class RequestDeliveryServicePage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private toastController: ToastController,
     private deliveryService: DeliveryService,
-    private cartService: CartService) {
+    private cartService: CartService) 
+    {
     this.submitted = false;
-
     this.newDelivery = new Delivery();
     this.selectedDate = new Date();
     this.resultSuccess = false;
@@ -81,7 +82,7 @@ export class RequestDeliveryServicePage implements OnInit {
             this.showMessage(this.message);
             this.displaySubmitButton = false;
             this.newDeliveryServiceTransaction = response.deliveryServiceTransaction;
-
+            createNewDeliveryForm.reset();
           },
           error => {
             this.resultError = true;
@@ -91,11 +92,14 @@ export class RequestDeliveryServicePage implements OnInit {
           }
         )
     }
-    else {
-      if (!this.newDelivery.locationAddress) {
+    else 
+    {
+      if (!this.newDelivery.locationAddress) 
+      {
         this.showMessage("Location is required.");
       }
-      else if (!this.newDelivery.postalCode) {
+      else if (!this.newDelivery.postalCode) 
+      {
         this.showMessage("Postal code is required.");
       }
     }
@@ -132,7 +136,8 @@ export class RequestDeliveryServicePage implements OnInit {
 
 
   viewCart() {
-    this.cartService.addItem(this.newDeliveryServiceTransaction);
+    let transactionLineItem : TransactionLineItem = new DeliveryServiceTransaction(null, "Delivery Service",1,50,this.newDeliveryServiceTransaction.delivery);
+    this.cartService.addItem(transactionLineItem);
     this.router.navigate(['/viewCart']);
   }
 

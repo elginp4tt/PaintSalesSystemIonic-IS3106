@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -6,6 +6,9 @@ import { PaintService } from '../paint-service';
 import { PaintServiceService } from '../paint-service.service';
 import { NgForm } from '@angular/forms';
 import { IonSlides } from '@ionic/angular'; 
+import { PaintServiceTransaction } from '../paint-service-transaction';
+import { CartService } from '../cart.service';
+import { TransactionLineItem } from '../transaction-line-item';
 
 @Component({
   selector: 'app-request-paint-service',
@@ -15,23 +18,24 @@ import { IonSlides } from '@ionic/angular';
 export class RequestPaintServicePage implements OnInit {
 
   newPaintService : PaintService;
-
   submitted : boolean;
   resultSuccess: boolean;
 	resultError: boolean;
   message: string;
-  
   selectedDate: Date;
-
   displaySubmitButton : boolean;
+
+  newPaintServiceTransaction : PaintServiceTransaction;
+
+  @ViewChild('slides', { static: false }) slides;
 
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
     private toastController : ToastController,
-    private paintServiceService : PaintServiceService) 
+    private paintServiceService : PaintServiceService,
+    private cartService : CartService) 
   {
     this.submitted = false;
-    
     this.newPaintService = new PaintService();
     this.selectedDate = new Date();
     this.resultSuccess = false;
@@ -41,6 +45,24 @@ export class RequestPaintServicePage implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() 
+  {
+    this.clear();
+    this.slides.slideTo(0);
+  }
+
+
+  clear() 
+  {
+    this.submitted = false;
+    this.newPaintService = new PaintService();
+    this.selectedDate = new Date();
+    this.resultSuccess = false;
+    this.resultError = false;
+    this.displaySubmitButton = false;
+
   }
 
 
@@ -58,9 +80,8 @@ export class RequestPaintServicePage implements OnInit {
 					this.resultError = false;
           this.message = "New paint service created successfully";
           this.showMessage(this.message);
-          
-					this.newPaintService = new PaintService();
-					this.submitted = false;
+          this.displaySubmitButton = false;
+					this.newPaintServiceTransaction = response.paintServiceTransaction;
           createPaintServiceForm.reset();
         },
         error => {
@@ -82,13 +103,6 @@ export class RequestPaintServicePage implements OnInit {
         this.showMessage("Postal code is required.");
       }
     }
-  }
-
-  clear()
-  {
-   this.submitted = false;
-   this.newPaintService = new PaintService(); 
-   this.selectedDate = new Date();
   }
 
   get convert(): string {
@@ -121,6 +135,12 @@ export class RequestPaintServicePage implements OnInit {
     });
 
     await toast.present();
+  }
+
+  viewCart() {
+    let transactionLineItem : TransactionLineItem = new PaintServiceTransaction(null, "Paint Service",1,200,this.newPaintServiceTransaction.paintService);
+    this.cartService.addItem(transactionLineItem);
+    this.router.navigate(['/viewCart']);
   }
 
 }

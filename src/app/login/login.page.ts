@@ -67,11 +67,8 @@ export class LoginPage implements OnInit {
 						this.sessionService.setCurrentCustomer(customer);					
 						this.loginError = false;
 						this.appComponent.updateMainMenu();
-<<<<<<< HEAD
 						this.cartService.instantiateCart();
-=======
 						this.router.navigate(['/home']);
->>>>>>> d970a1a0831b33353a564fcfa166b3b01130224e
 					}
 					else
 					{

@@ -7,8 +7,10 @@ export class PaintService {
 	postalCode: string;
 	paintServiceStartTime: Date;
 	paintServiceEndTime: Date;
+
 	employee: Employee;
 	paintServiceTransaction: PaintServiceTransaction;
+	
 	
 	constructor(paintServiceId?: number, locationAddress?: string, postalCode?: string, paintServiceStartTime?: Date, 
 	paintServiceEndTime?: Date, employee?: Employee, paintServiceTransaction?: PaintServiceTransaction){

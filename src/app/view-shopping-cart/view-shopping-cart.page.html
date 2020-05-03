@@ -1,12 +1,12 @@
 <ion-header>
   <ion-toolbar color="primary">
-		<ion-buttons slot="start">
-			<ion-menu-button></ion-menu-button>
-		</ion-buttons>
-		<ion-title>
-			View My Shopping Cart
-		</ion-title>
-	</ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      View My Shopping Cart
+    </ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
@@ -34,8 +34,20 @@
         <ion-col>Price</ion-col>
         <ion-col>Action</ion-col>
       </ion-row>
+      <ion-row *ngFor="let tle of cart; let i = index" class="align-items: center">
+        <ion-col>{{i + 1}}</ion-col>
+        <ion-col>{{tle.itemName}}</ion-col>
+        <ion-col>{{tle.quantity}}</ion-col>
+        <ion-col>{{tle.price}}</ion-col>
+        <ion-col>
+          <ion-button expand="full" (click)="removeItem(tle)">
+            Remove item
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid> -->
 
-  <!-- <ion-card *ngFor="let tli of cart">
+    <!-- <ion-card *ngFor="let tli of cart">
     <ion-card-header>
       <h2>${{tli.price}}</h2>
     </ion-card-header>
@@ -75,19 +87,8 @@
   </ion-card> -->
 
 
-      <ion-row *ngFor="let tle of cart; let i = index" class="align-items: center">
-        <ion-col>{{i + 1}}</ion-col>
-        <ion-col>{{tle.itemName}}</ion-col>
-        <ion-col>{{tle.quantity}}</ion-col>
-        <ion-col>{{tle.price}}</ion-col>
-        <ion-col>
-          <ion-button expand="full" (click)="removeItem(tle)">
-            Remove item
-          </ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid> -->
-    <ion-list> 
+
+    <ion-list>
       <ion-item *ngFor="let tle of cart; let i = index">
         <ion-label>
           <h2>S/N: {{i+1}}</h2>
@@ -96,11 +97,13 @@
           <h3>Total Price: {{tle.price}}</h3>
         </ion-label>
 
-        <ion-button (click)="removeItem(tle)" slot="end" color="tertiary">
+        <ion-button (click)="removeItem(tle,i)" slot="end" color="tertiary">
           <ion-icon name="remove-circle-outline"></ion-icon>
         </ion-button>
       </ion-item>
     </ion-list>
+
+
     <ion-fab vertical="bottom" horizontal="start" slot="fixed">
       <ion-fab-button color="danger" (click)="clearCart()">
         <ion-icon name="trash-outline"></ion-icon>

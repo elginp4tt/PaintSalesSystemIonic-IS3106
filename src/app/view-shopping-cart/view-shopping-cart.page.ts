@@ -26,6 +26,7 @@ export class ViewShoppingCartPage implements OnInit {
 
   ngOnInit() 
   {
+    this.cart = this.cartService.getCart();
   }
 
   ionViewWillEnter()
@@ -61,8 +62,10 @@ export class ViewShoppingCartPage implements OnInit {
     }
   }
 
-    removeItem(transactionLineItem){
-      this.cartService.removeItem(transactionLineItem);
+    removeItem(transactionLineItem, i){
+      this.cartService.removeItem(transactionLineItem,i);
+      console.log(i);
+      this.cart = this.cartService.getCart();
     }
   
     isCartEmpty(){

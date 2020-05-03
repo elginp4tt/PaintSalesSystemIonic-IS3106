@@ -2,13 +2,10 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 
 import { UtilityService } from './utility.service';
 import { SessionService } from './session.service';
-import { TransactionService } from './transaction.service';
 import { TransactionLineItem } from './transaction-line-item';
-import { PaintTag } from './paint-tag';
 import { PaintTransaction } from './paint-transaction';
 import { DeliveryServiceTransaction } from './delivery-service-transaction';
 
@@ -24,7 +21,6 @@ export class CartService {
 
 	constructor(private httpClient: HttpClient,
 		private utilityService: UtilityService,
-		private transactionService: TransactionService,
 		private sessionService: SessionService) {
 
 		this.baseUrl = this.utilityService.getRootPath() + 'Cart';
@@ -40,6 +36,8 @@ export class CartService {
 		return this.cart;
 	}
 
+
+
 	getItemCount() {
 		return this.itemCount;
 	}
@@ -48,6 +46,7 @@ export class CartService {
 	{
 
 		if (transactionLineItem instanceof PaintTransaction) {
+			console.log("yes, this is a paint transaction");
 			let added = false;
 			for (let i of this.cart) {
 				if (i.itemName === transactionLineItem.itemName) {
@@ -70,7 +69,7 @@ export class CartService {
 
 		if(transactionLineItem instanceof DeliveryServiceTransaction)
 		{
-			console.log("u are right, it is delivery transaction");
+			console.log("yes, little delivery service transaction i got u!");
 		}
 
 
@@ -97,37 +96,22 @@ export class CartService {
 		this.itemCount.next(this.itemCount.value - 1);
 	}
 
-	removeItem(transactionLineItem?: TransactionLineItem) {
+	removeItem(transactionLineItem?: TransactionLineItem, i?: number) {
 		
-		if (transactionLineItem instanceof PaintTransaction) 
+		let newArr : TransactionLineItem[] = [];
+		for(var y = 0;y < this.cart.length;y++)
 		{
-			for (const [index, i] of this.cart.entries()) {
-				if (i.itemName === transactionLineItem.itemName) {
-					this.itemCount.next(this.itemCount.value - i.quantity);
-					this.cart.splice(index, 1);
-				}
+			if(y != i)
+			{	
+				newArr.push(this.cart[y]);
 			}
 		}
-		else if(transactionLineItem instanceof DeliveryServiceTransaction)
-		{
-			console.log("***********yes.it is a delivery transaction");
-		}
-		else
-		{
-			console.log("it is nothing");
-		}
+		this.cart = newArr;
 		
 	}
 
 	clearCart() {
-		this.cart.length = 0;
-	}
-
-	checkout() {
-		console.log("**********cart service.ts : checkout");
-		this.transactionService.createNewTransaction(this.sessionService.getCurrentCustomer(), this.getCart());
-
-		this.clearCart();
+		this.instantiateCart();
 	}
 
 	private handleError(error: HttpErrorResponse) {
