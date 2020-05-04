@@ -87,6 +87,10 @@ const routes: Routes = [
     path: 'customer-profile-modal',
     loadChildren: () => import('./customer-profile-modal/customer-profile-modal.module').then( m => m.CustomerProfileModalPageModule)
   },
+  {
+    path: 'viewLoyaltyPoints/:loyaltyPoint',
+    loadChildren: () => import('./view-loyalty-point/view-loyalty-point.module').then( m => m.ViewLoyaltyPointPageModule)
+  },
 
 ];
 

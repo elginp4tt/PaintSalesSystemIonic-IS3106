@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Dear {{customerLastName}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card>
+    <ion-card-header>
+      <h1><b>{{loyaltyPoint}}</b> points</h1>
+    </ion-card-header>
+  </ion-card>
+  <ion-card>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-input type="number" placeholder="Enter points" [(ngModel)]="enteredPoint"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-button (click)="getDiscount()">Proceed</ion-button>
+        </ion-item>
+      </ion-list>
+      
+      
+      
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

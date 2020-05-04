@@ -76,7 +76,8 @@ export class TransactionService {
 		let createNewTransactionReq = {
 			"paintTransactions": paintLineItemArr,
 			"deliveryServiceTransactions" : deliveryLineItemArr,
-			"paintServiceTransactions" : paintServiceLineItemArr
+			"paintServiceTransactions" : paintServiceLineItemArr,
+			"discount" : this.cartService.getDiscount()
 		}
 
 		console.log(this.sessionService.getCurrentCustomer().username);

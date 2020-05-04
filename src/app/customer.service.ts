@@ -24,7 +24,6 @@ export class CustomerService {
 	}
 
 	customerLogin(username: string, password: string): Observable<any> {
-		console.log("**** customer service ts login: ", this.baseUrl + "/customerLogin?username=" + username + "&password=" + password);
 		return this.httpClient.get<any>(this.baseUrl + "/customerLogin?username=" + username + "&password=" + password).pipe
 			(
 				catchError(this.handleError)

@@ -18,6 +18,10 @@ export class CartService {
 
 	private cart: TransactionLineItem[];
 	private itemCount = new BehaviorSubject(0);
+	private remainingLoyaltyPoint : number;
+	private isMember : boolean;
+	private totalPrice : number;
+	private discount : number;
 
 	constructor(private httpClient: HttpClient,
 		private utilityService: UtilityService,
@@ -25,11 +29,66 @@ export class CartService {
 	{
 
 		this.baseUrl = this.utilityService.getRootPath() + 'Cart';
+		
 		this.cart = [];
+		this.remainingLoyaltyPoint = 0;
+		this.isMember = false;
+		this.totalPrice = 0;
+		this.discount =0;
 	}
 
 	instantiateCart() {
 		this.cart = [];
+	}
+
+	//called when logout
+	clearCustomerInfo()
+	{
+		this.isMember = false;
+		this.remainingLoyaltyPoint = 0;
+		this.totalPrice = 0;
+		this.discount = 0;
+	}
+
+	getDiscount()
+	{
+		return this.discount;
+	}
+
+	setDiscount(discount : number)
+	{
+		this.discount = discount;
+	}
+
+
+	getTotalPrice()
+	{
+		return this.totalPrice;
+	}
+
+	setTotalPrice(totalPrice : number)
+	{
+		this.totalPrice = totalPrice;
+	}
+
+	getIsMember()
+	{
+		return this.isMember;
+	}
+
+	setIsMember(isMember : boolean)
+	{
+		this.isMember = isMember;
+	}
+
+	getLoyaltyPoint()
+	{
+		return this.remainingLoyaltyPoint;
+	}
+
+	setLoyaltyPoint(loyaltyPoint : number)
+	{
+		this.remainingLoyaltyPoint = loyaltyPoint;
 	}
 
 
@@ -71,22 +130,6 @@ export class CartService {
 		else
 		{
 			this.cart.push(transactionLineItem);
-		}
-
-		if(transactionLineItem instanceof DeliveryServiceTransaction)
-		{
-			console.log("yes, little delivery service transaction i got u!");
-		}
-
-
-		console.log("**********I am at cart");
-		for (var i = 0; i < this.cart.length; i++) {
-			// console.log("*** Cart item: " + this.cart[i].itemName);
-			// console.log("*** Cart item: " + this.cart[i].quantity);
-			// console.log("*** Cart item: " + this.cart[i].price);
-			// console.log("*** Cart qty: " + this.cart[i].quantity);
-			// console.log("*** Cart price: " + this.cart[i].price);
-			console.log("*** Cart item: ", this.cart[i] instanceof PaintTransaction);
 		}
 	}
 

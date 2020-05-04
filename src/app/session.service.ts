@@ -3,6 +3,7 @@ import { Platform } from '@ionic/angular';
 
 import { Customer } from './customer';
 import { Transaction } from './transaction';
+import { TransactionLineItem } from './transaction-line-item';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class SessionService {
 	
 	getRootPath(): string
 	{
-		console.log('this.platform.is("hybrid"): ' + this.platform.is('hybrid'));
+		// console.log('this.platform.is("hybrid"): ' + this.platform.is('hybrid'));
 		
 		if(this.platform.is('hybrid'))
 		{

@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../cart.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { ToastController, AlertController } from '@ionic/angular';
 import { TransactionService } from '../transaction.service';
+import { CustomerService } from '../customer.service';
+import { Customer } from '../customer';
+import { SessionService } from '../session.service';
 
 @Component({
   selector: 'app-payment',
@@ -21,18 +24,18 @@ export class PaymentPage implements OnInit {
     private router: Router,
     private toastController: ToastController,
     private alertController: AlertController,
-    private transactionService : TransactionService
+    private transactionService: TransactionService,
+    private customerService: CustomerService,
+    private sessionService : SessionService
   ) {
     this.expiryDate = new Date();
     this.showProgressBar = false;
   }
 
-  ngOnInit() 
-  {
+  ngOnInit() {
   }
 
-  ionViewWillEnter() 
-  {
+  ionViewWillEnter() {
   }
 
   create(createNewPaymentForm: NgForm) {
@@ -45,7 +48,19 @@ export class PaymentPage implements OnInit {
             createNewPaymentForm.reset();
             this.handleButtonClick();
             this.cartService.clearCart();
-            console.log("success");
+
+            let totalPrice: number = this.cartService.getTotalPrice();
+            let convertedPts: number = Math.ceil(totalPrice/10);
+            let remainingPts : number = this.cartService.getLoyaltyPoint() + convertedPts;
+            let customer : Customer = this.sessionService.getCurrentCustomer();
+            customer.loyaltyPoints = remainingPts;
+            this.customerService.updateCustomer(customer).subscribe(
+              response => {
+                this.sessionService.setCurrentCustomer(response.customer)
+              }
+            );
+            this.cartService.clearCustomerInfo();
+
             this.router.navigate(['/viewCart']);
           },
           error => {
@@ -53,6 +68,7 @@ export class PaymentPage implements OnInit {
             console.log("failure");
           }
         );
+
       }
       else {
         this.showMessage("Your card has expired.");
@@ -65,12 +81,10 @@ export class PaymentPage implements OnInit {
       else if (!this.cardCode) {
         this.showMessage("Card code is required.");
       }
-      else if(this.cardCode.length != 3)
-      {
+      else if (this.cardCode.length != 3) {
         this.showMessage("Card code must be three digits.");
       }
-      else if(this.cardNum.length != 16)
-      {
+      else if (this.cardNum.length != 16) {
         this.showMessage("Card number must be 16 digits.");
       }
     }

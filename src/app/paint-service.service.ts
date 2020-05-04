@@ -30,12 +30,7 @@ export class PaintServiceService {
 	
 	getAllPaintServices() : Observable<any>
 	{
-		// return this.httpClient.get<any>(this.baseUrl + "/retrieveAllPaintServices?username=" + this.sessionService.getUsername).pipe
-		// (
-		// 	catchError(this.handleError)	
-		// );
-
-		return this.httpClient.get<any>(this.baseUrl + "/retrieveAllPaintServices?username=" + "customer1").pipe
+		return this.httpClient.get<any>(this.baseUrl + "/retrieveAllPaintServices?username=" + this.sessionService.getCurrentCustomer().username).pipe
 		(
 			catchError(this.handleError)	
 		);
@@ -68,12 +63,7 @@ export class PaintServiceService {
 			"paintService" : newPaintService
 		}
 
-		// return this.httpClient.put<any>(this.baseUrl + "?username=" + this.sessionService.getUsername, createPaintServiceReq, httpOptions).pipe
-		// (
-		// 	catchError(this.handleError)
-		// )
-
-		return this.httpClient.put<any>(this.baseUrl + "?username=" + "customer1", createPaintServiceReq, httpOptions).pipe
+		return this.httpClient.put<any>(this.baseUrl + "?username=" + this.sessionService.getCurrentCustomer().username, createPaintServiceReq, httpOptions).pipe
 		(
 			catchError(this.handleError)
 		)

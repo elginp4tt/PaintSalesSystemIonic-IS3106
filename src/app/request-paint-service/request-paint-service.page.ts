@@ -81,7 +81,7 @@ export class RequestPaintServicePage implements OnInit {
           this.message = "New paint service created successfully";
           this.showMessage(this.message);
           this.displaySubmitButton = false;
-					this.newPaintServiceTransaction = response.paintServiceTransaction;
+          this.newPaintServiceTransaction = response.paintServiceTransaction;
           createPaintServiceForm.reset();
         },
         error => {
@@ -138,7 +138,7 @@ export class RequestPaintServicePage implements OnInit {
   }
 
   viewCart() {
-    let transactionLineItem : TransactionLineItem = new PaintServiceTransaction(null, "Paint Service",1,200,this.newPaintServiceTransaction.paintService);
+    let transactionLineItem : TransactionLineItem = new PaintServiceTransaction(null, this.newPaintServiceTransaction.itemName,this.newPaintServiceTransaction.quantity,this.newPaintServiceTransaction.price,this.newPaintServiceTransaction.paintService);
     this.cartService.addItem(transactionLineItem);
     this.router.navigate(['/viewCart']);
   }

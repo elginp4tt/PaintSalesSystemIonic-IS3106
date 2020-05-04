@@ -136,7 +136,7 @@ export class RequestDeliveryServicePage implements OnInit {
 
 
   viewCart() {
-    let transactionLineItem : TransactionLineItem = new DeliveryServiceTransaction(null, "Delivery Service",1,50,this.newDeliveryServiceTransaction.delivery);
+    let transactionLineItem : TransactionLineItem = new DeliveryServiceTransaction(null, this.newDeliveryServiceTransaction.itemName,this.newDeliveryServiceTransaction.quantity,this.newDeliveryServiceTransaction.price,this.newDeliveryServiceTransaction.delivery);
     this.cartService.addItem(transactionLineItem);
     this.router.navigate(['/viewCart']);
   }
