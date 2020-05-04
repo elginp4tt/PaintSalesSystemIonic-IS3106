@@ -3,7 +3,6 @@ import { TransactionLineItem } from '../transaction-line-item';
 import { CartService } from '../cart.service';
 import { ActionSheetController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { SessionService } from '../session.service';
 
 @Component({
   selector: 'app-view-shopping-cart',
@@ -42,13 +41,13 @@ export class ViewShoppingCartPage implements OnInit {
   {
     for(var i=0;i<this.cart.length;i++)
     {
-      this.totalItems = this.totalItems + this.cart[i].quantity;
+      this.totalItems = +this.totalItems + +this.cart[i].quantity;
     }
   }
 
   calculateTotal()
   {
-    this.subTotal = this.cart.reduce((a,b)=>a + b.price * b.quantity,0);
+    this.subTotal = this.cart.reduce((a,b)=>a + b.price * 1,0);
   }
 
   checkout()
@@ -63,8 +62,8 @@ export class ViewShoppingCartPage implements OnInit {
     }
   }
 
-    removeItem(transactionLineItem, i){
-      this.cartService.removeItem(transactionLineItem,i);
+    removeItem(i){
+      this.cartService.removeItem(i);
       console.log(i);
       this.cart = this.cartService.getCart();
     }
@@ -79,6 +78,7 @@ export class ViewShoppingCartPage implements OnInit {
   
     clearCart(){
       this.cartService.clearCart();
+      this.cart = this.cartService.getCart();
     }
   
     // checkout(){

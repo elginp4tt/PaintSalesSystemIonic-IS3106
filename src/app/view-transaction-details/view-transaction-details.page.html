@@ -17,7 +17,7 @@
       </div>
 
       <ion-list *ngIf='retrieveTransactionError == false && transactionToView != null'>
-        <ion-item *ngFor="let lineItems of transactionToView; let i = index">
+        <ion-item *ngFor="let lineItems of transactionLineItems; let i = index">
           <ion-label>
             <h2><b>S/N: {{i+1}} </b></h2>
             <p><b>Item Name:</b> {{lineItems.itemName}}</p>

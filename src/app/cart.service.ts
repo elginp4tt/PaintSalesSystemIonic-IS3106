@@ -21,7 +21,8 @@ export class CartService {
 
 	constructor(private httpClient: HttpClient,
 		private utilityService: UtilityService,
-		private sessionService: SessionService) {
+		private sessionService: SessionService) 
+	{
 
 		this.baseUrl = this.utilityService.getRootPath() + 'Cart';
 		this.cart = [];
@@ -34,6 +35,11 @@ export class CartService {
 
 	getCart() {
 		return this.cart;
+	}
+
+	setCart(cart : TransactionLineItem[])
+	{
+		this.cart = cart;
 	}
 
 
@@ -96,7 +102,7 @@ export class CartService {
 		this.itemCount.next(this.itemCount.value - 1);
 	}
 
-	removeItem(transactionLineItem?: TransactionLineItem, i?: number) {
+	removeItem(i?: number) {
 		
 		let newArr : TransactionLineItem[] = [];
 		for(var y = 0;y < this.cart.length;y++)
