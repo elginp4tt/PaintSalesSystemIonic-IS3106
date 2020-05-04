@@ -25,6 +25,36 @@ export class CustomerProfilePage implements OnInit {
     this.currentCustomer = this.sessionService.getCurrentCustomer();
   }
 
+  becomeAMember(){
+    console.log("*** become a member");
+    if (this.checkMember()){
+      this.alreadyAMemberToast();
+    } else {
+      console.log("**** not a member yet");
+      this.makeMember();
+    }
+  }
+
+
+  checkMember(){
+    if (this.currentCustomer.loyaltyPoints == null){
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  makeMember(){
+    this.customerService.makeMember(this.currentCustomer).subscribe(response =>{
+      this.sessionService.setCurrentCustomer(response.customer);
+      this.currentCustomer = response.customer;
+      this.makeMemberSuccessToast();
+    },
+    error=> {
+      this.makeMemberErrorToast();
+    })
+  }
+
   async updateDetails() {
     console.log("*****update details");
     this.customerToUpdate = new Customer();
@@ -78,6 +108,38 @@ export class CustomerProfilePage implements OnInit {
     return toast.present();
   }
 
+  async alreadyAMemberToast() {
+    const toast = document.createElement('ion-toast');
+    toast.message = "Hi " + this.currentCustomer.firstName + " " + this.currentCustomer.lastName + " , You Are Already A Member!";
+    toast.position = "top";
+    toast.duration = 2000;
+    toast.style.textAlign = "center";
+
+    document.body.appendChild(toast);
+    return toast.present();
+  }
+
+  async makeMemberErrorToast() {
+    const toast = document.createElement('ion-toast');
+    toast.message = "There Is An Problem Making You A Member, Please Try Again Later!";
+    toast.position = "top";
+    toast.duration = 2000;
+    toast.style.textAlign = "center";
+
+    document.body.appendChild(toast);
+    return toast.present();
+  }
+
+  async makeMemberSuccessToast() {
+    const toast = document.createElement('ion-toast');
+    toast.message = "Welcome " + this.currentCustomer.firstName + " " + this.currentCustomer.lastName + " , Thank You For Joining Us As A Member!";
+    toast.position = "top";
+    toast.duration = 2000;
+    toast.style.textAlign = "center";
+
+    document.body.appendChild(toast);
+    return toast.present();
+  }
 
 }
 

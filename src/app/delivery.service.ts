@@ -34,16 +34,16 @@ export class DeliveryService {
 	getAllDeliveries(): Observable<any>
 	{
 		
-		// return this.httpClient.get<any>(this.baseUrl + "/retrieveAllDeliveries?username" + this.sessionService.getUsername()).pipe
-		// (
-		// 	catchError(this.handleError)
-		// )
-		
-		//testing purpose
-		return this.httpClient.get<any>(this.baseUrl + "/retrieveAllDeliveries?username=customer1").pipe
+		return this.httpClient.get<any>(this.baseUrl + "/retrieveAllDeliveries?username" + this.sessionService.getCurrentCustomer().username).pipe
 		(
 			catchError(this.handleError)
-		);
+		)
+		
+		// //testing purpose
+		// return this.httpClient.get<any>(this.baseUrl + "/retrieveAllDeliveries?username=customer1").pipe
+		// (
+		// 	catchError(this.handleError)
+		// );
 	}
 
 	
@@ -75,15 +75,15 @@ export class DeliveryService {
 			"delivery" : newDelivery
 		}
 
-		// return this.httpClient.put<any>(this.baseUrl + "?username=" + this.sessionService.getUsername, createDeliveryReq, httpOptions).pipe
-		// (
-		// 	catchError(this.handleError)
-		// );
-
-		return this.httpClient.put<any>(this.baseUrl + '?username=customer1', createDeliveryReq, httpOptions).pipe
+		return this.httpClient.put<any>(this.baseUrl + "?username=" + this.sessionService.getCurrentCustomer().username, createDeliveryReq, httpOptions).pipe
 		(
 			catchError(this.handleError)
 		);
+
+		// return this.httpClient.put<any>(this.baseUrl + '?username=customer1', createDeliveryReq, httpOptions).pipe
+		// (
+		// 	catchError(this.handleError)
+		// );
 	}
 
 	

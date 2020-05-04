@@ -20,7 +20,9 @@ export class ViewTransactionDetailsPage implements OnInit {
   error : boolean;
   errorMessage : string;
   resultSuccess : boolean;
-  totalPrice : number;
+  grossPrice : number;
+  netPrice : number;
+  discount : number;
 
   constructor(private router : Router,
     private activatedRoute : ActivatedRoute,
@@ -46,7 +48,9 @@ export class ViewTransactionDetailsPage implements OnInit {
         this.transactionLineItems = this.transactionToView.transactionLineItems;
         this.retrieveTransactionError = false;
         this.resultSuccess = true;
-        this.calculateTotalPrice();
+        this.calculateGrossPrice();
+        this.calculateNetPrice();
+        this.discount = this.transactionToView.discount;
       }, 
       error => {
         this.retrieveTransactionError = true;
@@ -61,12 +65,21 @@ export class ViewTransactionDetailsPage implements OnInit {
     this.router.navigate(['/viewAllTransaction']);
   }
 
-  calculateTotalPrice (){
-    this.totalPrice = 0;
+  calculateGrossPrice (){
+    this.grossPrice = 0;
     for (var i =0; i<this.transactionLineItems.length; i++){
-      this.totalPrice += this.transactionLineItems[i].price;
+      this.grossPrice += this.transactionLineItems[i].price;
     }
   }
+
+  calculateNetPrice(){
+    this.netPrice = +this.grossPrice - +this.transactionToView.discount;
+  }
+
+  gotDiscount(){
+    return this.discount > 0;
+  }
+
 
   isPaintTransaction(lineItem){
     console.log("*****isPaintTransaction: " , lineItem instanceof PaintTransaction);

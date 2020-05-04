@@ -93,7 +93,7 @@ export class LoginPage implements OnInit {
 		this.sessionService.setIsLogin(false);
 		this.sessionService.setCurrentCustomer(null);		
 		this.appComponent.updateMainMenu();
-
+		this.router.navigate(["/home"]);
 	}
 	
 	back()

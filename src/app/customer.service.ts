@@ -31,6 +31,13 @@ export class CustomerService {
 			);
 	}
 
+	makeMember (customerToBeMember : Customer) : Observable<any>{
+		console.log("***customerToBeMeber ts: ");
+		return this.httpClient.get<any>(this.baseUrl + "/makeCustomerMember?username=" + customerToBeMember.username).pipe (
+			catchError(this.handleError)
+		)
+	}
+
 	updateCustomer(toUpdateCustomer: Customer): Observable<any> {
 
 		console.log("***** customer service ts:")
