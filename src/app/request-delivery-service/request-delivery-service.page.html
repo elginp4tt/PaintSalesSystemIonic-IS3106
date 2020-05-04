@@ -1,9 +1,44 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>RequestDeliveryService</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Request A Delivery</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
+  <form #createDeliveryForm="ngForm" (ngSubmit)="create(createDeliveryForm)">
+
+    <ion-slides [options]="slideOpts" #slides (ionSlideDidChange)="checkSlideIndex(slides)">
+
+      <ion-slide>
+        <h2>Where to deliver?</h2>
+        <h3>
+          <ion-input type="text" id="location" name="location" [(ngModel)]="newDelivery.locationAddress" required="true"
+            #location="ngModel" placeholder="Enter location"></ion-input>
+        </h3>
+      </ion-slide>
+
+      <ion-slide>
+        <h2>Postal code of the address?</h2>
+        <h3>
+          <ion-input type="text" id="postalCode" name="postalCode" [(ngModel)]="newDelivery.postalCode" required="true"
+            #postalCode="ngModel" placeholder="Enter postal code" maxlength="6"></ion-input>
+        </h3>
+      </ion-slide>
+      <ion-slide>
+        
+        <h2>When to deliver?</h2>
+        <ion-datetime displayFormat="MMM DD, YYYY HH:mm" name="selectedDate" [(ngModel)]="convert"></ion-datetime>
+      </ion-slide>
+    </ion-slides>
+    
+    <ion-button type="submit" expand="full" *ngIf="displaySubmitButton" color="primary">
+      Confirm
+    </ion-button>
+    <ion-button expand="full" (click)="viewCart()" *ngIf="resultSuccess">View Cart</ion-button>
+  </form>
 </ion-content>
+

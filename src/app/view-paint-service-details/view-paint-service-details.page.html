@@ -1,9 +1,50 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>ViewPaintServiceDetails</ion-title>
+    <ion-buttons slot="start">
+			<ion-back-button></ion-back-button>
+		</ion-buttons>
+    <ion-title>
+      View Paint Service Details
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-card>
+    <ion-card-content>
+      
+      <div *ngIf="retrievePaintServiceError == true" style="color: red;">
+        Paint Service ID {{paintServiceId}} does not exist!
+      </div>
 
+      <ion-list *ngIf = "paintServiceToView != null && retrievePaintServiceError == false">
+
+        <ion-item>
+          <ion-label><b>Paint Service ID</b></ion-label>
+          {{paintServiceToView.paintServiceId}}
+        </ion-item>
+
+        <ion-item>
+          <ion-label><b>Location Address</b></ion-label>
+          {{paintServiceToView.locationAddress}}
+        </ion-item>
+
+        <ion-item>
+          <ion-label><b>Postal Code</b></ion-label>
+          {{paintServiceToView.postalCode}}
+        </ion-item>
+
+        <ion-item>
+          <ion-label><b>Start At</b></ion-label>
+          {{paintServiceToView.paintServiceStartTime | date:'medium'}}
+        </ion-item>
+
+      </ion-list>
+
+      <ion-button expand="block" (click)="updatePaintService()">
+        <ion-icon name="create"></ion-icon>
+        Update
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

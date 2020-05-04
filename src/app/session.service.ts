@@ -20,6 +20,7 @@ export class SessionService {
 		if(this.platform.is('hybrid'))
 		{
 			return "http://192.168.137.1:8080/PaintSalesSystemRws/Resources/"; //put link here
+			//return "http://192.168.0.103:8080/PaintSalesSystemRws/Resources/";//bingsen's IP address
 		}
 		else
 		{

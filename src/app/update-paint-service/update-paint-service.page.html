@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Update Paint Service</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+
+      <form *ngIf="paintServiceToUpdate != null && retrievePaintServiceError ==false" #updatePaintServiceForm="ngForm"
+        (ngSubmit)="update(updatePaintServiceForm)">
+
+
+        <ion-list>
+          <ion-item>
+            <ion-label position="stacked"><b>Delivery ID</b></ion-label>
+            {{paintServiceToUpdate.paintServiceId}}
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked"><b>Location Address</b></ion-label>
+            <ion-input type="text" id="location" name="location" [(ngModel)]="paintServiceToUpdate.locationAddress"
+              required="true" #location="ngModel"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked"><b>Postal Code</b></ion-label>
+            <ion-input type="text" id="postalCode" name="postalCode" [(ngModel)]="paintServiceToUpdate.postalCode"
+              required="true" #postalCode="ngModel"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked"><b>Choose a service time</b></ion-label>
+            <ion-datetime displayFormat="MMM DD, YYYY HH:mm" name="date" [(ngModel)]="convert"></ion-datetime>
+          </ion-item>
+        </ion-list>
+
+        <ion-button expand="block" type="submit" ion-button block>
+          Update
+        </ion-button>
+      </form>
+
+    </ion-card-content>
+  </ion-card>
+
+
+</ion-content>

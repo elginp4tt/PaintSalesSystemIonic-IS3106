@@ -7,6 +7,7 @@ import { catchError } from 'rxjs/operators';
 import { UtilityService } from './utility.service';
 import { Paint } from './paint';
 import { PaintService } from './paint-service';
+import { SessionService } from './session.service';
 
 const httpOptions = {
 	headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -20,29 +21,66 @@ export class PaintServiceService {
 	baseUrl: string;
 
 	constructor(private httpClient: HttpClient,
-			  private utilityService: UtilityService){
+			  private utilityService: UtilityService,
+			  private sessionService : SessionService){
 				  
 		this.baseUrl = this.utilityService.getRootPath() + 'PaintService';
 	}
 	
-	getPaintServiceByPaintServiceId(paintServiceId: number): Observable<any>
+	
+	getAllPaintServices() : Observable<any>
+	{
+		// return this.httpClient.get<any>(this.baseUrl + "/retrieveAllPaintServices?username=" + this.sessionService.getUsername).pipe
+		// (
+		// 	catchError(this.handleError)	
+		// );
+
+		return this.httpClient.get<any>(this.baseUrl + "/retrieveAllPaintServices?username=" + "customer1").pipe
+		(
+			catchError(this.handleError)	
+		);
+	}
+
+	
+	getPaintServiceById(paintServiceId : number): Observable<any>
 	{
 		return this.httpClient.get<any>(this.baseUrl + "/retrievePaintService/" + paintServiceId).pipe
 		(
 			catchError(this.handleError)
 		);
 	}
-	
-	
-	createNewPaintService(newPaintService: PaintService): Observable<any>
+
+	updatePaintService(paintServiceToUpdate : PaintService) : Observable<any>
 	{
-		let createNewPaintServiceReq = {'newPaintService': newPaintService};
-		
-		return this.httpClient.put<any>(this.baseUrl, createNewPaintServiceReq, httpOptions).pipe
+		let updatePaintServiceReq = {
+			"paintService" : paintServiceToUpdate
+		}
+
+		return this.httpClient.post<any>(this.baseUrl, updatePaintServiceReq, httpOptions).pipe
 		(
 			catchError(this.handleError)
 		);
 	}
+
+	createPaintService(newPaintService : PaintService) : Observable<any>
+	{
+		let createPaintServiceReq = {
+			"paintService" : newPaintService
+		}
+
+		// return this.httpClient.put<any>(this.baseUrl + "?username=" + this.sessionService.getUsername, createPaintServiceReq, httpOptions).pipe
+		// (
+		// 	catchError(this.handleError)
+		// )
+
+		return this.httpClient.put<any>(this.baseUrl + "?username=" + "customer1", createPaintServiceReq, httpOptions).pipe
+		(
+			catchError(this.handleError)
+		)
+	}
+		
+	
+
 	
 	
 	

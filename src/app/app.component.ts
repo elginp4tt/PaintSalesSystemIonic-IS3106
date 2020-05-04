@@ -59,9 +59,14 @@ export class AppComponent implements OnInit {
           icon: 'home'
         },
         {
+          title: 'Customer Profile',
+          url: '/customerProfile',
+          icon: 'person'
+        },
+        {
           title: 'View All Paints',
           url: '/viewAllPaints',
-          icon: 'arrow-forward'
+          icon: 'color-fill'
         },
         {
           title: 'View Shopping Cart',
@@ -74,9 +79,29 @@ export class AppComponent implements OnInit {
           icon: 'list'
         },
         {
-          title: 'Customer Profile',
-          url: '/customerProfile',
-          icon: 'person'
+          title: 'View My Deliveries',
+          url: '/viewAllDeliveries',
+          icon: 'list'
+        },
+        {
+          title : 'Request Delivery',
+          url : '/requestNewDelivery',
+          icon: 'car-sport'
+        },
+        {
+          title: 'View My Paint Services',
+          url: '/viewAllPaintServices',
+          icon: 'list',
+        },
+        {
+          title : 'Request Paint Service',
+          url : '/requestNewPaintService',
+          icon: 'color-palette'
+        },
+        {
+          title: 'Logout',
+          url: '/login',
+          icon: 'log-out'
         },
       ];
     } else { //What you want the customer to see before logged in

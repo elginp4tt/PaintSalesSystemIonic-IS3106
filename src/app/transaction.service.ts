@@ -12,6 +12,10 @@ import { TransactionLineItem } from './transaction-line-item';
 import { DeliveryService } from './delivery.service';
 import { DeliveryServiceTransaction } from './delivery-service-transaction';
 import { Delivery } from './delivery';
+import { CartService } from './cart.service';
+import { PaintTransaction } from './paint-transaction';
+import { Paint } from './paint';
+import { PaintServiceTransaction } from './paint-service-transaction';
 
 const httpOptions = {
 	headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -26,7 +30,8 @@ export class TransactionService {
 
 	constructor(private httpClient: HttpClient,
 		private utilityService: UtilityService,
-		private sessionService: SessionService) {
+		private sessionService: SessionService,
+		private cartService: CartService) {
 
 		this.baseUrl = this.utilityService.getRootPath() + 'transaction';
 	}
@@ -46,39 +51,40 @@ export class TransactionService {
 			);
 	}
 
-	createNewTransaction(customer: Customer, transactionLineItems: TransactionLineItem[]): Observable<any> {
-		console.log("**********transaction service ts: Create new Transaction");
-		console.log("**********transaction service ts TLE length before: ", transactionLineItems.length);
-		let arr : TransactionLineItem [] = [];
-		let ds: DeliveryServiceTransaction  = new DeliveryServiceTransaction();
-		let d: Delivery = new Delivery();
-	
-		ds.itemName = "Delivery Service";
-		ds.price = 50;
-		ds.quantity = 1;
+	createNewTransaction(): Observable<any> {
 
-		d.locationAddress = "address 1";
-		d.postalCode = "123456";
-		d.deliveryStartTime = new Date ("2020-04-09T21:20:00Z[UTC]");
-		d.deliveryEndTime = new Date ("2020-04-09T21:00:00Z[UTC]");
-
-		ds.delivery = d;
-		// arr.push(ds);
-		console.log("***arr: " , arr)
-		// let newTransaction : Transaction = new Transaction (null, customer, transactionLineItems);
+		let arr : TransactionLineItem[] = this.cartService.getCart();
+		let paintLineItemArr : PaintTransaction[] = [];
+		let deliveryLineItemArr : DeliveryServiceTransaction[] = [];
+		let paintServiceLineItemArr : PaintServiceTransaction[] = [];
+		for(var x = 0;x < arr.length;x++)
+		{
+			if(arr[x] instanceof DeliveryServiceTransaction)
+			{
+				deliveryLineItemArr.push(<DeliveryServiceTransaction>arr[x]);
+			}
+			else if(arr[x] instanceof PaintTransaction)
+			{
+				paintLineItemArr.push(<PaintTransaction>arr[x]);
+			}
+			else if(arr[x] instanceof PaintServiceTransaction)
+			{
+				paintServiceLineItemArr.push(<PaintServiceTransaction>arr[x]);
+			}
+		}
+		
 		let createNewTransactionReq = {
-			// "newTransactionLineItems": transactionLineItems,
-			// "customerId": customer.customerId
-			"newTransactionLineItems": arr,
-			"customerId" : 1
-		};
+			"paintTransactions": paintLineItemArr,
+			"deliveryServiceTransactions" : deliveryLineItemArr,
+			"paintServiceTransactions" : paintServiceLineItemArr
+		}
 
-		console.log("**********transaction service ts: custid: ", createNewTransactionReq.customerId);
+		console.log(this.sessionService.getCurrentCustomer().username);
 
-		return this.httpClient.put<any>(this.baseUrl, createNewTransactionReq, httpOptions).pipe
-			(
-				catchError(this.handleError)
-			);
+		return this.httpClient.put<any>(this.baseUrl + "/?username=" + this.sessionService.getCurrentCustomer().username, createNewTransactionReq, httpOptions).pipe
+		(
+			catchError(this.handleError)
+		);
 	}
 
 	private handleError(error: HttpErrorResponse) {

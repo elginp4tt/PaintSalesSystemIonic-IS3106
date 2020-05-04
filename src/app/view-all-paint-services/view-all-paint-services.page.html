@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+			<ion-menu-button></ion-menu-button>
+		</ion-buttons>
+    <ion-title>
+      My Paint Services
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let paintService of paintServices" button="true" (click)="viewPaintServiceDetails($event, paintService)">
+    <ion-card-header>
+      <ion-card-title>
+        {{paintService.paintServiceStartTime | date:'medium'}}
+      </ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      {{paintService.locationAddress}}, {{paintService.postalCode}}
+    </ion-card-content>
+  </ion-card>
+</ion-content>

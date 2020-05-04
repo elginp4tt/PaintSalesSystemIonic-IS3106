@@ -13,10 +13,10 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },  
   { path: 'viewAllPaints', loadChildren: './view-all-paints/view-all-paints.module#ViewAllPaintsPageModule'},
-  { path: 'viewPaintDetails', loadChildren: './view-paint-details/view-paint-details.module#ViewPaintDetailsPageModule' },
+  { path: 'viewPaintDetails', loadChildren: './view-paint-details/view-paint-details.module#ViewPaintDetailsPageModule'},
   { path: 'viewPaintDetails/:paintId', loadChildren: './view-paint-details/view-paint-details.module#ViewPaintDetailsPageModule'},
   { path: 'login', loadChildren: './login/login.module#LoginPageModule'},
-  { path: 'registerCustomer', loadChildren: './register/register.module#RegisterPageModule' },
+  { path: 'registerCustomer', loadChildren: './register/register.module#RegisterPageModule'},
   { path: 'viewAllTransaction', loadChildren: './view-all-transactions/view-all-transactions.module#ViewAllTransactionsPageModule', canActivate: [AuthGuard] },
   { path: 'viewTransactionDetails', loadChildren: './view-transaction-details/view-transaction-details.module#ViewTransactionDetailsPageModule', canActivate: [AuthGuard] },
   { path: 'viewTransactionDetails/:transactionId', loadChildren: './view-transaction-details/view-transaction-details.module#ViewTransactionDetailsPageModule', canActivate: [AuthGuard] },
@@ -32,16 +32,40 @@ const routes: Routes = [
     loadChildren: () => import('./request-paint-service/request-paint-service.module').then( m => m.RequestPaintServicePageModule)
   },
   {
-    path: 'request-delivery-service',
+    path: 'viewAllDeliveries',
+    loadChildren: ()=> import('./view-all-deliveries/view-all-deliveries.module').then(m => m.ViewAllDeliveriesPageModule)
+  },
+  {
+    path: 'viewDeliveryDetails/:deliveryId',
+    loadChildren: ()=> import('./view-delivery-service-details/view-delivery-service-details.module').then(m => m.ViewDeliveryServiceDetailsPageModule)
+  },
+  {
+    path: 'updateDelivery/:deliveryId',
+    loadChildren: () => import('./update-delivery/update-delivery.module').then(m => m.UpdateDeliveryPageModule)
+  },
+  {
+    path: 'requestNewDelivery',
     loadChildren: () => import('./request-delivery-service/request-delivery-service.module').then( m => m.RequestDeliveryServicePageModule)
   },
   {
-    path: 'view-paint-service-details',
+    path: 'viewAllPaintServices',
+    loadChildren: () => import('./view-all-paint-services/view-all-paint-services.module').then( m => m.ViewAllPaintServicesPageModule)
+  },
+  {
+    path: 'viewPaintServiceDetails/:paintServiceId',
     loadChildren: () => import('./view-paint-service-details/view-paint-service-details.module').then( m => m.ViewPaintServiceDetailsPageModule)
   },
   {
-    path: 'view-delivery-service-details',
-    loadChildren: () => import('./view-delivery-service-details/view-delivery-service-details.module').then( m => m.ViewDeliveryServiceDetailsPageModule)
+    path: 'updatePaintService/:paintServiceId',
+    loadChildren: () => import('./update-paint-service/update-paint-service.module').then(m => m.UpdatePaintServicePageModule),canActivate: [AuthGuard]
+  },
+  {
+    path: 'requestNewPaintService',
+    loadChildren: () => import('./request-paint-service/request-paint-service.module').then( m => m.RequestPaintServicePageModule)
+  },
+  {
+    path: 'payment',
+    loadChildren: () => import('./payment/payment.module').then( m => m.PaymentPageModule)
   },
   {
     path: 'mix-paint',
@@ -60,21 +84,10 @@ const routes: Routes = [
     loadChildren: () => import('./filter-paints-by-tags-modal/filter-paints-by-tags-modal.module').then( m => m.FilterPaintsByTagsModalPageModule)
   },
   {
-    path: 'access-right-error',
-    loadChildren: () => import('./access-right-error/access-right-error.module').then( m => m.AccessRightErrorPageModule)
-  },
-  {
-    path: 'access-right-error',
-    loadChildren: () => import('./access-right-error/access-right-error.module').then( m => m.AccessRightErrorPageModule)
-  },
-  {
-    path: 'customer-profile',
-    loadChildren: () => import('./customer-profile/customer-profile.module').then( m => m.CustomerProfilePageModule)
-  },
-  {
     path: 'customer-profile-modal',
     loadChildren: () => import('./customer-profile-modal/customer-profile-modal.module').then( m => m.CustomerProfileModalPageModule)
   },
+
 ];
 
 @NgModule({

@@ -8,6 +8,7 @@ import { CustomerService } from '../customer.service';
 
 import { Customer } from '../customer';
 import { AppComponent } from '../app.component';
+import { CartService } from '../cart.service';
 
 @Component({
   selector: 'app-login',
@@ -28,6 +29,7 @@ export class LoginPage implements OnInit {
 	constructor(private router: Router,
 				private sessionService: SessionService,
 				private customerService: CustomerService,
+				private cartService : CartService,
 				private appComponent : AppComponent
 				) { 
 	
@@ -65,6 +67,7 @@ export class LoginPage implements OnInit {
 						this.sessionService.setCurrentCustomer(customer);					
 						this.loginError = false;
 						this.appComponent.updateMainMenu();
+						this.cartService.instantiateCart();
 						this.router.navigate(['/home']);
 					}
 					else

@@ -26,50 +26,41 @@
     </ion-card>
   </div>
   <div *ngIf="isCartEmpty() == false">
-    <!-- <ion-grid>
-      <ion-row class="align-items: center">
-        <ion-col>S/N</ion-col>
-        <ion-col>Item Name</ion-col>
-        <ion-col>Quantity</ion-col>
-        <ion-col>Price</ion-col>
-        <ion-col>Action</ion-col>
-      </ion-row>
-
-      <ion-row *ngFor="let tle of cart; let i = index" class="align-items: center">
-        <ion-col>{{i + 1}}</ion-col>
-        <ion-col>{{tle.itemName}}</ion-col>
-        <ion-col>{{tle.quantity}}</ion-col>
-        <ion-col>{{tle.price}}</ion-col>
-        <ion-col>
-          <ion-button expand="full" (click)="removeItem(tle)">
-            Remove item
-          </ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid> -->
         <ion-list>
           <ion-item *ngFor="let tle of cart; let i = index">
             <ion-label>
               <h2>S/N: {{i+1}}</h2>
               <h3>Item Name: {{tle.itemName}}</h3>
               <h3>Item Quantity: {{tle.quantity}}</h3>
-              <h3>Total Price: {{tle.price}}</h3>
+              <h3>Total Price: ${{tle.price}}</h3>
             </ion-label>
 
-            <ion-button (click)="removeItem(tle)" slot="end" color="tertiary">
+            <ion-button (click)="removeItem(i)" slot="end" color="tertiary">
               <ion-icon name="remove-circle-outline"></ion-icon>
             </ion-button>
           </ion-item>
         </ion-list>
 
-        <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)" [disabled]="endReached == true">
-          <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
-          </ion-infinite-scroll-content>
-        </ion-infinite-scroll>
+        <ion-card>
+          <ion-card-content>
+            <ion-list>
+              <ion-item>
+                <h3><b>Total Price: </b></h3>
+                <ion-label style="text-align: right;"><b>${{subTotal}}</b></ion-label>
+              </ion-item>
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+
+        
        
         <div style="height: 100%; align-items: center; justify-content: center; text-align: center;">
           <ion-button (click)="continueShopping()">Back To Shopping!</ion-button>
         </div>
+        <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)" [disabled]="endReached == true">
+          <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+          </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
   </div>
   
   <ion-fab vertical="bottom" horizontal="start" slot="fixed" *ngIf="isCartEmpty() == false">

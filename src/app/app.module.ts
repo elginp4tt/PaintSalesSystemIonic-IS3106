@@ -23,7 +23,7 @@ import { CustomerProfileModalPageModule } from './customer-profile-modal/custome
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    FormsModule,
+	  FormsModule,
     HttpClientModule,
     FilterPaintsByCategoriesModalPageModule,
     FilterPaintsByTagsModalPageModule,

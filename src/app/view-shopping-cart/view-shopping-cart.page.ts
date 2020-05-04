@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CartService } from '../cart.service';
-import { Router } from '@angular/router';
-import { SessionService } from '../session.service';
 import { TransactionLineItem } from '../transaction-line-item';
+import { CartService } from '../cart.service';
+import { ActionSheetController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-shopping-cart',
@@ -10,37 +10,81 @@ import { TransactionLineItem } from '../transaction-line-item';
   styleUrls: ['./view-shopping-cart.page.scss'],
 })
 export class ViewShoppingCartPage implements OnInit {
+
+  cart : TransactionLineItem[];
+  totalItems : number;
+  subTotal : number;
   endReached = false;
-  private cart: TransactionLineItem[];
 
   constructor(private cartService : CartService,
-    private router : Router,
-    private sessionService : SessionService) { }
+    private actionSheetController : ActionSheetController,
+    private router : Router) 
+  {
+    this.totalItems = 0;
+    this.subTotal = 0;
+  }
 
-  ngOnInit() {
+  ngOnInit() 
+  {
     this.cart = this.cartService.getCart();
   }
 
-  removeItem(transactionLineItem){
-    this.cartService.removeItem(transactionLineItem);
+  ionViewWillEnter()
+  {
+    this.cart = this.cartService.getCart();
+    this.countNumItem();
+    this.calculateTotal();
   }
 
-  isCartEmpty(){
-    return this.cart.length == 0;
+
+  countNumItem()
+  {
+    for(var i=0;i<this.cart.length;i++)
+    {
+      this.totalItems = +this.totalItems + +this.cart[i].quantity;
+    }
   }
 
-  continueShopping (){
-    this.router.navigate(['/viewAllPaints']);
+  calculateTotal()
+  {
+    this.subTotal = this.cart.reduce((a,b)=>a + b.price * 1,0);
   }
 
-  clearCart(){
-    this.cartService.clearCart();
+  checkout()
+  {
+    console.log("******proceed to checkout");
+    if (this.cartService.getCart().length === 0) {
+      console.log("nothing to checkout");
+      this.router.navigate(['/viewCart']);
+    }
+    else{
+      this.router.navigate(["/payment"]);
+    }
   }
 
-  checkout(){
-    this.cartService.checkout();
-  }
-
+    removeItem(i){
+      this.cartService.removeItem(i);
+      console.log(i);
+      this.cart = this.cartService.getCart();
+    }
+  
+    isCartEmpty(){
+      return this.cart.length == 0;
+    }
+  
+    continueShopping (){
+      this.router.navigate(['/viewAllPaints']);
+    }
+  
+    clearCart(){
+      this.cartService.clearCart();
+      this.cart = this.cartService.getCart();
+    }
+  
+    // checkout(){
+    //   this.cartService.checkout();
+    // }
+    
   loadData(event) {
     setTimeout(() => {
         console.log('Done');
@@ -50,3 +94,5 @@ export class ViewShoppingCartPage implements OnInit {
 }
 
 }
+
+

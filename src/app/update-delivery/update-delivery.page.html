@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Update Delivery</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      <div *ngIf="retrieveDeliveryError == true" style="color: red;">
+        Delivery ID {{deliveryId}} does not exist!
+      </div>
+
+      <div *ngIf="resultSuccess == true" style="color: blue;">
+        {{message}}
+      </div>
+
+      <div *ngIf="resultError == true" style="color: red;">
+        {{message}}
+      </div>
+
+      <form *ngIf="deliveryToUpdate != null && retrieveDeliveryError ==false" #updateDeliveryForm="ngForm"
+        (ngSubmit)="update(updateDeliveryForm)">
+
+        <div style="color: red;">
+          <div *ngIf="location.invalid && (location.dirty || location.touched || submitted)" class="errorText">
+            <div *ngIf="location.errors.required">
+              Location is required.
+            </div>
+          </div>
+          <div *ngIf="postalCode.invalid && (postalCode.dirty || postalCode.touched || submitted)" class="errorText">
+            <div *ngIf="postalCode.errors.required">
+              Postal code is required.
+            </div>
+          </div>
+        </div>
+
+
+        <ion-list>
+          <ion-item>
+            <ion-label position="stacked"><b>Delivery ID</b></ion-label>
+            {{deliveryToUpdate.deliveryId}}
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked"><b>Location Address</b></ion-label>
+            <ion-input type="text" id="location" name="location" [(ngModel)]="deliveryToUpdate.locationAddress"
+              required="true" #location="ngModel"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked"><b>Postal Code</b></ion-label>
+            <ion-input type="text" id="postalCode" name="postalCode" [(ngModel)]="deliveryToUpdate.postalCode"
+              required="true" #postalCode="ngModel"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked"><b>Choose a delivery time</b></ion-label>
+            <ion-datetime displayFormat="MMM DD, YYYY HH:mm" name="date" [(ngModel)]="convert"></ion-datetime>
+          </ion-item>
+        </ion-list>
+
+        <ion-button expand="block" type="submit" ion-button block>
+          Update
+        </ion-button>
+      </form>
+
+    </ion-card-content>
+  </ion-card>
+
+
+</ion-content>

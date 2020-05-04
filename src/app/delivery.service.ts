@@ -5,8 +5,10 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { UtilityService } from './utility.service';
+import { SessionService } from './session.service';
 import { Delivery } from './delivery';
 import { DeliveryServiceTransaction } from './delivery-service-transaction';
+
 
 
 const httpOptions = {
@@ -21,29 +23,69 @@ export class DeliveryService {
 	baseUrl: string;
 
 	constructor(private httpClient: HttpClient,
-			  private utilityService: UtilityService) { 
+			  private utilityService: UtilityService,
+			  private sessionService: SessionService) { 
 			  
 		this.baseUrl = this.utilityService.getRootPath() + 'Delivery';
 	}
 	
-	getDeliveryByDeliveryId(deliveryId: number): Observable<any>
+	
+
+	getAllDeliveries(): Observable<any>
+	{
+		
+		// return this.httpClient.get<any>(this.baseUrl + "/retrieveAllDeliveries?username" + this.sessionService.getUsername()).pipe
+		// (
+		// 	catchError(this.handleError)
+		// )
+		
+		//testing purpose
+		return this.httpClient.get<any>(this.baseUrl + "/retrieveAllDeliveries?username=customer1").pipe
+		(
+			catchError(this.handleError)
+		);
+	}
+
+	
+	getDeliveryById(deliveryId : number): Observable<any>
 	{
 		return this.httpClient.get<any>(this.baseUrl + "/retrieveDelivery/" + deliveryId).pipe
 		(
 			catchError(this.handleError)
 		);
 	}
-	
-	
-	createNewDelivery(newDelivery: Delivery): Observable<any>
+
+
+	updateDelivery(deliveryToUpdate : Delivery) : Observable<any>
 	{
-		let createNewDeliveryReq = {'newDelivery': newDelivery};
-		
-		return this.httpClient.put<any>(this.baseUrl, createNewDeliveryReq, httpOptions).pipe
+		let updateDeliveryReq = {
+			"delivery" : deliveryToUpdate
+		}
+
+		return this.httpClient.post<any>(this.baseUrl, updateDeliveryReq, httpOptions).pipe
 		(
 			catchError(this.handleError)
 		);
 	}
+
+
+	createDelivery(newDelivery : Delivery) :Observable<any>
+	{
+		let createDeliveryReq = {
+			"delivery" : newDelivery
+		}
+
+		// return this.httpClient.put<any>(this.baseUrl + "?username=" + this.sessionService.getUsername, createDeliveryReq, httpOptions).pipe
+		// (
+		// 	catchError(this.handleError)
+		// );
+
+		return this.httpClient.put<any>(this.baseUrl + '?username=customer1', createDeliveryReq, httpOptions).pipe
+		(
+			catchError(this.handleError)
+		);
+	}
+
 	
 	private handleError(error: HttpErrorResponse)
 	{
