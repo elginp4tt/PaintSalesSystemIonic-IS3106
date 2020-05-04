@@ -32,6 +32,8 @@ export class CustomerService {
 	}
 
 	updateCustomer(toUpdateCustomer: Customer): Observable<any> {
+
+		console.log("***** customer service ts:")
 		let updateCustomerReq = {
 			'toUpdateCustomer': toUpdateCustomer
 		}

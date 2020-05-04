@@ -26,16 +26,20 @@ export class CustomerProfilePage implements OnInit {
   }
 
   async updateDetails() {
+    console.log("*****update details");
     this.customerToUpdate = new Customer();
 
     const customerProfileModal = await this.modalController.create({
       component: CustomerProfileModalPage,
     });
 
-    customerProfileModal.onDidDismiss().then((event) => {
-      if (event.data.toUpdateCustomer != null) {
-        let toUpdateCustomer = event.data.toUpdateCustomer;
 
+    customerProfileModal.onDidDismiss().then((event) => {
+      // console.log("****** cust: ", event.data.toUpdateCustomer);
+      // console.log("****** cust: ", event.data.toUpdateCustomer == null);
+        if (event.data.toUpdateCustomer != null){
+        let toUpdateCustomer = event.data.toUpdateCustomer;
+        // console.log("****** cust: ", event.data.toUpdateCustomer);
         this.customerService.updateCustomer(toUpdateCustomer).subscribe(
           response => {
             this.sessionService.setCurrentCustomer(response.customer);
@@ -45,7 +49,7 @@ export class CustomerProfilePage implements OnInit {
           error => {
             this.updateFailure();
           });
-      }
+        }
     });
 
 
