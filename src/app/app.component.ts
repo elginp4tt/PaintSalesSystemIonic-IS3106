@@ -69,6 +69,11 @@ export class AppComponent implements OnInit {
           icon: 'color-fill'
         },
         {
+            title: 'Mix Paints',
+            url: '/mixPaint',
+            icon: 'color-fill'
+        },
+        {
           title: 'View Shopping Cart',
           url: '/viewCart',
           icon: 'cart'

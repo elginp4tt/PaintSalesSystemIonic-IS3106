@@ -15,11 +15,18 @@
     <ion-card-content style="text-align: center;">
         <img src="https://i.imgur.com/yILM61G.jpg" style="height: 25%; width: 25%;"/>
     </ion-card-content>
+    <ion-label *ngIf="checkMember() == false"><b>Normal Customer</b></ion-label> <br>
+    <ion-label *ngIf="checkMember() == true"><b>&#1137; Member Customer &#1137;</b></ion-label> <br>
     <ion-label>{{currentCustomer.firstName}} {{currentCustomer.lastName}}</ion-label>
   </ion-card>
   <ion-card>
     <ion-label><b>Username: </b>{{currentCustomer.username}}</ion-label> <br><br/>
     <ion-label><b>Email: </b>{{currentCustomer.email}}</ion-label> <br><br/>
-    <ion-label><b>Home Address: </b>{{currentCustomer.homeAddress}}</ion-label>
-  </ion-card>
+    <ion-label><b>Home Address: </b>{{currentCustomer.homeAddress}}</ion-label> <br> <br>
+    <ion-label *ngIf="checkMember() == true"><b>Loyalty Points: </b> {{currentCustomer.loyaltyPoints}}</ion-label>
+    </ion-card>
+
+    <div style="height: 100%; align-items: center; justify-content: center; text-align: center;">
+      <ion-button  (click)="becomeAMember()"> Become A Member</ion-button>
+    </div>
 </ion-content>

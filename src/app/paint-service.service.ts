@@ -34,6 +34,11 @@ export class PaintServiceService {
 		(
 			catchError(this.handleError)	
 		);
+
+		// return this.httpClient.get<any>(this.baseUrl + "/retrieveAllPaintServices?username=" + "customer1").pipe
+		// (
+		// 	catchError(this.handleError)	
+		// );
 	}
 
 	
@@ -67,6 +72,11 @@ export class PaintServiceService {
 		(
 			catchError(this.handleError)
 		)
+
+		// return this.httpClient.put<any>(this.baseUrl + "?username=" + "customer1", createPaintServiceReq, httpOptions).pipe
+		// (
+		// 	catchError(this.handleError)
+		// )
 	}
 		
 	

@@ -94,7 +94,7 @@ export class LoginPage implements OnInit {
 		this.sessionService.setCurrentCustomer(null);		
 		this.appComponent.updateMainMenu();
 		this.cartService.clearCustomerInfo();
-
+		this.router.navigate(["/home"]);
 	}
 	
 	back()
