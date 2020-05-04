@@ -71,7 +71,7 @@ export class AppComponent implements OnInit {
         {
             title: 'Mix Paints',
             url: '/mixPaint',
-            icon: 'arrow-forward'
+            icon: 'color-fill'
         },
         {
           title: 'View Shopping Cart',
