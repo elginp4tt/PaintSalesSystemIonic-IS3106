@@ -15,6 +15,7 @@ export class ViewShoppingCartPage implements OnInit {
   cart : TransactionLineItem[];
   totalItems : number;
   subTotal : number;
+  endReached = false;
 
   constructor(private cartService : CartService,
     private actionSheetController : ActionSheetController,
@@ -84,6 +85,14 @@ export class ViewShoppingCartPage implements OnInit {
     //   this.cartService.checkout();
     // }
     
+  loadData(event) {
+    setTimeout(() => {
+        console.log('Done');
+        this.endReached = true;
+        event.target.complete();
+    }, 500);
+}
+
 }
 
 

@@ -103,4 +103,8 @@ export class RegisterPage implements OnInit {
 		document.body.appendChild(toast);
 		return toast.present();
 	}
+
+	checkEmail(){
+		return false;
+	}
 }

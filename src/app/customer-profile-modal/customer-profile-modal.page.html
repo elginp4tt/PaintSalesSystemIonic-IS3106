@@ -1,0 +1,55 @@
+<ion-header>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-toolbar color="primary">
+      <ion-title>My Details</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form #updateCustomerForm="ngForm" (ngSubmit)="updateModal()">
+    <ion-list>
+      <ion-item>
+        <ion-label><b>Username</b></ion-label>
+        <ion-input placeholder="test" type="text" id="username" name="username" [(ngModel)]="currentCustomer.username"
+          required="true" #username="ngModel" readonly="readonly"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label><b>Password</b></ion-label>
+        <ion-input type="password" id="password" name="password" [(ngModel)]="currentCustomer.password" required="true"
+          #password="ngModel"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label><b>First Name</b></ion-label>
+        <ion-input placeholder="test" type="text" id="firstName" name="firstName"
+          [(ngModel)]="currentCustomer.firstName" required="true" #firstName="ngModel"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label><b>Last Name</b></ion-label>
+        <ion-input placeholder="test" type="text" id="lastName" name="lastName" [(ngModel)]="currentCustomer.lastName"
+          required="true" #lastName="ngModel"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label><b>Email</b></ion-label>
+        <ion-input placeholder="test" type="text" id="email" name="email" readonly="readonly"
+          [(ngModel)]="currentCustomer.email" required="true" #email="ngModel"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label><b>Home Address</b></ion-label>
+        <ion-input placeholder="test" type="text" id="homeAddress" name="homeAddress"
+          [(ngModel)]="currentCustomer.homeAddress" required="true" #homeAddress="ngModel"></ion-input>
+      </ion-item>
+
+    </ion-list>
+
+
+    <ion-button expand="block" type="submit"> Update</ion-button>
+    <ion-button expand="block" (click)="closeModal()"> Close</ion-button>
+  </form>
+</ion-content>

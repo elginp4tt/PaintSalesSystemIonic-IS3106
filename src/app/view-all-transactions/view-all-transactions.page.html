@@ -17,13 +17,12 @@
       </ion-card-header>
     </ion-card>
     <ion-card-content>
-      <ion-grid>
+      <!-- <ion-grid>
         <ion-row>
           <ion-col><b>Transaction Id</b></ion-col>
           <ion-col><b>Action</b></ion-col>
-        </ion-row>
-
-        <ion-row *ngFor="let transaction of transactions">
+        </ion-row> -->
+        <!-- <ion-row *ngFor="let transaction of transactions">
           <ion-col>{{transaction.transactionId}}</ion-col>
           <ion-col>
             <ion-button (click)='viewTransactionDetails($event, transaction)'>
@@ -31,8 +30,18 @@
               View More Details
             </ion-button>
           </ion-col>
-        </ion-row>
-      </ion-grid>
+        </ion-row> -->
+      <!-- </ion-grid> -->
+
+      <ion-item *ngFor="let transaction of transactions">
+        <ion-label>
+          <h2><b>Transaction ID: </b> {{transaction.transactionId}}</h2>
+        </ion-label>
+        <ion-button (click)='viewTransactionDetails($event, transaction)'>
+          <ion-icon slot="end" name="arrow-forward"></ion-icon>
+          View More Details
+        </ion-button>
+      </ion-item>
 
     </ion-card-content>
 

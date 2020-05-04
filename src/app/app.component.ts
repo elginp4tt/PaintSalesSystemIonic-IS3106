@@ -90,7 +90,12 @@ export class AppComponent implements OnInit {
         {
           title: 'View My Paint Services',
           url: '/viewAllPaintServices',
-          icon: 'arrow-forward'
+          icon: 'arrow-forward',
+        },
+        {
+          title: 'Customer Profile',
+          url: '/customerProfile',
+          icon: 'person'
         },
         {
           title : 'Request Paint Service',

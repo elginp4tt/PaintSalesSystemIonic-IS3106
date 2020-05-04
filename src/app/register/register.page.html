@@ -16,7 +16,7 @@
         <div style="color: red;">
 
           <div *ngIf="email.invalid && (email.dirty || email.touched || submitted)" class="errorText">
-            <div *ngIf="check(email)"></div>
+            <!-- <div *ngIf="check(email)"></div> -->
             <div *ngIf="email.errors.required">
               Email is required.
             </div>
@@ -85,7 +85,7 @@
           </ion-item>
 
           <ion-item>
-            <ion-label><b>Addresss</b></ion-label>
+            <ion-label><b>Home Addresss</b></ion-label>
             <ion-input placeholder="Enter Address Here" type="homeAddress" id="homeAddress" name="homeAddress"
               [(ngModel)]="newCustomer.homeAddress" required="true" #homeAddress="ngModel"></ion-input>
           </ion-item>

@@ -1,11 +1,12 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
 		<ion-buttons slot="start">      
 			<ion-button (click)="back()">
 				<ion-icon slot="start" name="arrow-back"></ion-icon>
 			</ion-button>
 		</ion-buttons>
 		<ion-title>Login</ion-title>
+
 		<ion-button slot="secondary" expand="block" (click)="customerLogout()" *ngIf="sessionService.getIsLogin() == true">
 			<ion-icon slot="start" name="log-out"></ion-icon>
 			Logout
@@ -20,9 +21,9 @@
 	      
       <ion-card-content>
 	  
-		<div *ngIf="loginError == true" style="color: red;">
+		<!-- <div *ngIf="loginError == true" style="color: red;">
 			{{errorMessage}}
-		</div>
+		</div> -->
 	  
 		<form #customerLoginForm="ngForm" (ngSubmit)="customerLogin(customerLoginForm)" >
 		
