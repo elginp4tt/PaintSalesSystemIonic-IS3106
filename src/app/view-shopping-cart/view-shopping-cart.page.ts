@@ -10,7 +10,7 @@ import { TransactionLineItem } from '../transaction-line-item';
   styleUrls: ['./view-shopping-cart.page.scss'],
 })
 export class ViewShoppingCartPage implements OnInit {
-
+  endReached = false;
   private cart: TransactionLineItem[];
 
   constructor(private cartService : CartService,
@@ -40,5 +40,13 @@ export class ViewShoppingCartPage implements OnInit {
   checkout(){
     this.cartService.checkout();
   }
+
+  loadData(event) {
+    setTimeout(() => {
+        console.log('Done');
+        this.endReached = true;
+        event.target.complete();
+    }, 500);
+}
 
 }

@@ -74,9 +74,9 @@ export class AppComponent implements OnInit {
           icon: 'list'
         },
         {
-          title: 'Logout',
-          url: '/login',
-          icon: 'log-out'
+          title: 'Customer Profile',
+          url: '/customerProfile',
+          icon: 'person'
         },
       ];
     } else { //What you want the customer to see before logged in

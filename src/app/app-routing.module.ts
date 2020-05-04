@@ -12,15 +12,17 @@ const routes: Routes = [
     path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },  
-  { path: 'viewAllPaints', loadChildren: './view-all-paints/view-all-paints.module#ViewAllPaintsPageModule', canActivate: [AuthGuard] },
-  { path: 'viewPaintDetails', loadChildren: './view-paint-details/view-paint-details.module#ViewPaintDetailsPageModule', canActivate: [AuthGuard] },
-  { path: 'viewPaintDetails/:paintId', loadChildren: './view-paint-details/view-paint-details.module#ViewPaintDetailsPageModule', canActivate: [AuthGuard] },
+  { path: 'viewAllPaints', loadChildren: './view-all-paints/view-all-paints.module#ViewAllPaintsPageModule'},
+  { path: 'viewPaintDetails', loadChildren: './view-paint-details/view-paint-details.module#ViewPaintDetailsPageModule' },
+  { path: 'viewPaintDetails/:paintId', loadChildren: './view-paint-details/view-paint-details.module#ViewPaintDetailsPageModule'},
   { path: 'login', loadChildren: './login/login.module#LoginPageModule'},
-  { path: 'registerCustomer', loadChildren: './register/register.module#RegisterPageModule', canActivate: [AuthGuard] },
+  { path: 'registerCustomer', loadChildren: './register/register.module#RegisterPageModule' },
   { path: 'viewAllTransaction', loadChildren: './view-all-transactions/view-all-transactions.module#ViewAllTransactionsPageModule', canActivate: [AuthGuard] },
   { path: 'viewTransactionDetails', loadChildren: './view-transaction-details/view-transaction-details.module#ViewTransactionDetailsPageModule', canActivate: [AuthGuard] },
   { path: 'viewTransactionDetails/:transactionId', loadChildren: './view-transaction-details/view-transaction-details.module#ViewTransactionDetailsPageModule', canActivate: [AuthGuard] },
   { path: 'viewCart', loadChildren: './view-shopping-cart/view-shopping-cart.module#ViewShoppingCartPageModule', canActivate: [AuthGuard] },
+  { path: 'accessRightError', loadChildren: './access-right-error/access-right-error.module#AccessRightErrorPageModule' },
+  { path: 'customerProfile', loadChildren: './customer-profile/customer-profile.module#CustomerProfilePageModule', canActivate: [AuthGuard] },
   {
     path: 'request-refund',
     loadChildren: () => import('./request-refund/request-refund.module').then( m => m.RequestRefundPageModule)
@@ -56,6 +58,22 @@ const routes: Routes = [
   {
     path: 'filter-paints-by-tags-modal',
     loadChildren: () => import('./filter-paints-by-tags-modal/filter-paints-by-tags-modal.module').then( m => m.FilterPaintsByTagsModalPageModule)
+  },
+  {
+    path: 'access-right-error',
+    loadChildren: () => import('./access-right-error/access-right-error.module').then( m => m.AccessRightErrorPageModule)
+  },
+  {
+    path: 'access-right-error',
+    loadChildren: () => import('./access-right-error/access-right-error.module').then( m => m.AccessRightErrorPageModule)
+  },
+  {
+    path: 'customer-profile',
+    loadChildren: () => import('./customer-profile/customer-profile.module').then( m => m.CustomerProfilePageModule)
+  },
+  {
+    path: 'customer-profile-modal',
+    loadChildren: () => import('./customer-profile-modal/customer-profile-modal.module').then( m => m.CustomerProfileModalPageModule)
   },
 ];
 

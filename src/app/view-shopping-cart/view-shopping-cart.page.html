@@ -1,12 +1,12 @@
 <ion-header>
   <ion-toolbar color="primary">
-		<ion-buttons slot="start">
-			<ion-menu-button></ion-menu-button>
-		</ion-buttons>
-		<ion-title>
-			View My Shopping Cart
-		</ion-title>
-	</ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      View My Shopping Cart
+    </ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
@@ -47,36 +47,42 @@
         </ion-col>
       </ion-row>
     </ion-grid> -->
-    <ion-list> 
-      <ion-item *ngFor="let tle of cart; let i = index">
-        <ion-label>
-          <h2>S/N: {{i+1}}</h2>
-          <h3>Item Name: {{tle.itemName}}</h3>
-          <h3>Item Quantity: {{tle.quantity}}</h3>
-          <h3>Total Price: {{tle.price}}</h3>
-        </ion-label>
+        <ion-list>
+          <ion-item *ngFor="let tle of cart; let i = index">
+            <ion-label>
+              <h2>S/N: {{i+1}}</h2>
+              <h3>Item Name: {{tle.itemName}}</h3>
+              <h3>Item Quantity: {{tle.quantity}}</h3>
+              <h3>Total Price: {{tle.price}}</h3>
+            </ion-label>
 
-        <ion-button (click)="removeItem(tle)" slot="end" color="tertiary">
-          <ion-icon name="remove-circle-outline"></ion-icon>
-        </ion-button>
-      </ion-item>
-    </ion-list>
-    <ion-fab vertical="bottom" horizontal="start" slot="fixed">
-      <ion-fab-button color="danger" (click)="clearCart()">
-        <ion-icon name="trash-outline"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
+            <ion-button (click)="removeItem(tle)" slot="end" color="tertiary">
+              <ion-icon name="remove-circle-outline"></ion-icon>
+            </ion-button>
+          </ion-item>
+        </ion-list>
 
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-      <ion-fab-button color="success" (click)="checkout()">
-        <ion-icon name="card-outline"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
-
-    <ion-button>Back To Shopping!</ion-button>
+        <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)" [disabled]="endReached == true">
+          <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+          </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+       
+        <div style="height: 100%; align-items: center; justify-content: center; text-align: center;">
+          <ion-button (click)="continueShopping()">Back To Shopping!</ion-button>
+        </div>
   </div>
-
   
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed" *ngIf="isCartEmpty() == false">
+    <ion-fab-button color="danger" (click)="clearCart()">
+      <ion-icon name="trash-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="isCartEmpty() == false">
+    <ion-fab-button color="success" (click)="checkout()">
+      <ion-icon name="card-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
 
 </ion-content>

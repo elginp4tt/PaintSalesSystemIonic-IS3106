@@ -69,10 +69,12 @@ export class LoginPage implements OnInit {
 					}
 					else
 					{
+						this.loginFail();
 						this.loginError = true;
 					}
 				},
 				error => {
+					this.loginFail();
 					this.loginError = true;
 					this.errorMessage = error
 				}
@@ -100,4 +102,14 @@ export class LoginPage implements OnInit {
 		this.router.navigate(["/registerCustomer"]);
 	}
 
+	async loginFail() {
+        const toast = document.createElement('ion-toast');
+        toast.message = "Your Username And Password Does Not Match Or Have Not Registered An Account With Us. \n Please Try Again Or Register An Account With Us!";
+		toast.position = "top";
+        toast.duration = 4000;
+        toast.style.textAlign = "center";
+
+        document.body.appendChild(toast);
+        return toast.present();
+	}
 }

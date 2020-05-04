@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FilterPaintsByCategoriesModalPageModule } from './filter-paints-by-categories-modal/filter-paints-by-categories-modal.module';
 import { FilterPaintsByTagsModalPageModule } from './filter-paints-by-tags-modal/filter-paints-by-tags-modal.module';
+import { CustomerProfileModalPageModule } from './customer-profile-modal/customer-profile-modal.module';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { FilterPaintsByTagsModalPageModule } from './filter-paints-by-tags-modal
     HttpClientModule,
     FilterPaintsByCategoriesModalPageModule,
     FilterPaintsByTagsModalPageModule,
+    CustomerProfileModalPageModule
   ],
   providers: [
     StatusBar,
