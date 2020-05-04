@@ -15,8 +15,8 @@ export class MixPaintPage implements OnInit {
 
     percentageHundred: boolean;
     paints: Paint[];
-    paintIds: number[];
-    percentages: number[];
+    paintIds: number[] = [];
+    percentages: number[] = [];
     selectedPaints: Paint[];
     paint1: Paint;
     paint2: Paint;
@@ -32,10 +32,13 @@ export class MixPaintPage implements OnInit {
     }
 
     checkValid() {
-
+        console.log("Paint 1 :" + this.paint1 + " - " + " " + this.percentage1 + "%");
+        console.log("Paint 2 :" + this.paint2 + " - " + " " + this.percentage2 + "%");
+        console.log(this.paint1);
+        console.log(this.paint2);
         if (this.paint1 == null || this.paint2 == null) {
             this.noPaintToast();
-        } else if (this.paint1.paintId == this.paint2.paintId) {
+        } else if (this.paint1 == this.paint2) {
             this.samePaintToast();
         } else {
             if (this.percentage1 + this.percentage2 == 100) {
@@ -103,7 +106,8 @@ export class MixPaintPage implements OnInit {
         this.percentages.push(this.percentage2);
         mixedPaintTransaction.paintIds = this.paintIds;
         mixedPaintTransaction.paintValues = this.percentages;
-
+        console.log("Paint 1 :" + this.paint1.name + " - " + this.paint1.paintId + " - " + " " + this.percentage1 + "%");
+        console.log("Paint 2 :" + this.paint2.name + " - " + this.paint2.paintId + " - " +" " + this.percentage2 + "%");
         this.cartService.addItem(mixedPaintTransaction);
         this.submittedToast();
     }
@@ -139,12 +143,6 @@ export class MixPaintPage implements OnInit {
 
     selectPaints() {
         console.log(this.selectedPaints);
-    }
-
-    doMixPaint() {
-        console.log("doMixPaint()");
-        console.log(this.selectedPaints);
-        this.router.navigate(['/updateMixedPaints']);
     }
 
 }
