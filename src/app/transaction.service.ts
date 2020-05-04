@@ -77,7 +77,7 @@ export class TransactionService {
 			"paintTransactions": paintLineItemArr,
 			"deliveryServiceTransactions" : deliveryLineItemArr,
 			"paintServiceTransactions" : paintServiceLineItemArr,
-			"discount" : this.cartService.getDiscount()
+			"discount" : parseInt(this.cartService.getDiscount().toFixed(2))
 		}
 
 		console.log(this.sessionService.getCurrentCustomer().username);

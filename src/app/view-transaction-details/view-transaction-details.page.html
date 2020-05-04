@@ -30,11 +30,15 @@
           <ion-label>
             <p style="text-align: right;"><b>Gross Price: ${{grossPrice}} </b></p>
           </ion-label> <br> 
+        </ion-item>
 
+        <ion-item>
           <ion-label *ngIf="gotDiscount() == true">
             <p style="text-align: right;"><b>Discount Price: ${{discount}} </b></p>
           </ion-label> <br>
-
+        </ion-item>
+          
+        <ion-item>
           <ion-label *ngIf="gotDiscount() == true">
             <p style="text-align: right;"><b>Net Price: ${{netPrice}} </b></p>
           </ion-label>
