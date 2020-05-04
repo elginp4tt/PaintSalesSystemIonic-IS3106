@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: 'viewPaintDetails/:paintId', loadChildren: './view-paint-details/view-paint-details.module#ViewPaintDetailsPageModule'},
   { path: 'login', loadChildren: './login/login.module#LoginPageModule'},
   { path: 'registerCustomer', loadChildren: './register/register.module#RegisterPageModule'},
+  { path: 'mixPaint', loadChildren: './mix-paint/mix-paint.module#MixPaintPageModule'},
   { path: 'viewAllTransaction', loadChildren: './view-all-transactions/view-all-transactions.module#ViewAllTransactionsPageModule', canActivate: [AuthGuard] },
   { path: 'viewTransactionDetails', loadChildren: './view-transaction-details/view-transaction-details.module#ViewTransactionDetailsPageModule', canActivate: [AuthGuard] },
   { path: 'viewTransactionDetails/:transactionId', loadChildren: './view-transaction-details/view-transaction-details.module#ViewTransactionDetailsPageModule', canActivate: [AuthGuard] },

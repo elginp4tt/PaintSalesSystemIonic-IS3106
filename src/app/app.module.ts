@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule} from '@angular/forms' 
 import { HttpClientModule } from '@angular/common/http';
 import { FilterPaintsByCategoriesModalPageModule } from './filter-paints-by-categories-modal/filter-paints-by-categories-modal.module';
 import { FilterPaintsByTagsModalPageModule } from './filter-paints-by-tags-modal/filter-paints-by-tags-modal.module';
@@ -23,7 +24,8 @@ import { CustomerProfileModalPageModule } from './customer-profile-modal/custome
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-	  FormsModule,
+    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     FilterPaintsByCategoriesModalPageModule,
     FilterPaintsByTagsModalPageModule,
